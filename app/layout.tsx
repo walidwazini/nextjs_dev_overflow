@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
+
 import './globals.css'
 
 const inter = Inter({
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   title: 'Dev Overflow',
   description: 'StackOverflow clone',
   icons: {
-    icon:'/assets/images/site-logo.svg'
+    icon: '/assets/images/site-logo.svg'
   }
 }
 
@@ -28,10 +30,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${spaceGrotest.variable}`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${inter.variable} ${spaceGrotest.variable}`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
