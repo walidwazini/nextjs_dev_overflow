@@ -1,13 +1,18 @@
 import Image from "next/image";
-import {UserButton} from '@clerk/nextjs'
+import { UserButton } from '@clerk/nextjs'
+import ThemeButton from "@/components/DemoThemeButton";
 
 const Home = () => {
   return (
-    <div>
+    <div className="w-screen h-screen dark:bg-slate-800 bg-cyan-400 " >
       <UserButton afterSignOutUrl="/" />
       <h1 className="h1-bold" >Welcome to Next.js 13!</h1>
       <h1 className="h2-bold" >Welcome to Next.js 13!</h1>
       <h1 className="h3-bold" >Welcome to Next.js 13!</h1>
+      <ThemeButton />
+      <div className="dark:text-red-700 text-blue-500 font-semibold " >
+        Hello
+      </div>
     </div>
   )
 }
