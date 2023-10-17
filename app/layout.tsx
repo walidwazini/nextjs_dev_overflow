@@ -16,9 +16,9 @@ const spaceGrotest = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: 'Dev Overflow',
-  description: 'Stack overflow clone',
+  description: 'StackOverflow clone',
   icons: {
-    icon:'/assets/images/stie-logo.svg'
+    icon:'/assets/images/site-logo.svg'
   }
 }
 
