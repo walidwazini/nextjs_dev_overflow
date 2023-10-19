@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { UserButton, SignedIn } from '@clerk/nextjs'
 
+import ThemeBtn from './ThemeBtn'
+
 const Navbar = () => {
   return (
     <div className={`flex-between background-light900_dark200 
@@ -20,18 +22,19 @@ const Navbar = () => {
       </Link>
       GLOBAL SEARCH
       <div className='flex-between gap-5 ' >
+        <ThemeBtn />
         <SignedIn>
-      <UserButton 
-      afterSignOutUrl="/" 
-      appearance={{
-        elements:{
-          avatarBox: 'h-10 w-10'
-        },
-        variables:{
-          colorPrimary:'#ff7000'
-        }
-      }}
-      />
+          <UserButton
+            afterSignOutUrl="/"
+            appearance={{
+              elements: {
+                avatarBox: 'h-10 w-10'
+              },
+              variables: {
+                colorPrimary: '#ff7000'
+              }
+            }}
+          />
         </SignedIn>
         Mobile Nav
       </div>
