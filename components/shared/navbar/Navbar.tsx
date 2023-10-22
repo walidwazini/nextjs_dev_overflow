@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { UserButton, SignedIn } from '@clerk/nextjs'
 
 import ThemeBtn from './ThemeBtn'
+import MobileNav from './MobileNav'
 
 const Navbar = () => {
   return (
@@ -36,7 +37,7 @@ const Navbar = () => {
             }}
           />
         </SignedIn>
-        Mobile Nav
+        <MobileNav />
       </div>
     </div>
   )
