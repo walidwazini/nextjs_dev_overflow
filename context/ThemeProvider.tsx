@@ -13,10 +13,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState('')
 
   const handleThemeChange = () => {
-    if(
-      localStorage.theme === 'dark' || 
-      (!("theme" in localStorage) && 
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       setMode('dark');
       document.documentElement.classList.add('dark');
