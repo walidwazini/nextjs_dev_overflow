@@ -5,6 +5,7 @@ import { UserButton, SignedIn } from '@clerk/nextjs'
 
 import ThemeBtn from './ThemeBtn'
 import MobileNav from './MobileNav'
+import GlobalSearch from '../search/GlobalSearch'
 
 const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ const Navbar = () => {
 
         <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">Dev <span className="text-primary-500">Overflow</span></p>
       </Link>
-      GLOBAL SEARCH
+      <GlobalSearch />
       <div className='flex-between gap-5 ' >
         <ThemeBtn />
         <SignedIn>
