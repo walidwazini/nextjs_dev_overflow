@@ -3,7 +3,7 @@ import ThemeButton from "@/components/DemoThemeButton";
 
 const Home = () => {
   return (
-    <div className="w-screen h-screen dark:bg-slate-800 bg-cyan-400 " >
+    <div className="w-full h-full dark:bg-slate-800 bg-cyan-400 " >
       <h1 className="h1-bold" >Welcome to Next.js 13!</h1>
       <h1 className="h2-bold" >Welcome to Next.js 13!</h1>
       <h1 className="h3-bold" >Welcome to Next.js 13!</h1>

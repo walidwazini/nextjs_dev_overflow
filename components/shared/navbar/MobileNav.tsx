@@ -5,9 +5,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import Link from 'next/link'
@@ -50,7 +47,7 @@ const MobileNav = () => {
       <SheetTrigger>
         <Image
           src={'/assets/icons/hamburger.svg'} alt='menu' width={36} height={36}
-          className='invert-colors sm:hidden'
+          className='invert-colors md:hidden'
         />
       </SheetTrigger>
       <SheetContent side={'left'}
