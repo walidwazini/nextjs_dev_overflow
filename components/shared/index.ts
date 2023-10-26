@@ -1,5 +1,4 @@
 import Navbar from "./navbar/Navbar";
-import CustomButton from "./CustomButton";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
 import RenderTag from "./RenderTag";
@@ -8,7 +7,7 @@ import Filter from "./Filter";
 
 export {
   Navbar,
-  CustomButton, LeftSidebar,
+   LeftSidebar,
   RightSidebar, RenderTag,
   LocalSearchbar, Filter
 }

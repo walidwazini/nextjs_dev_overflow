@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Filter, LocalSearchbar } from "@/components/shared";
 import { HomePageFilters } from "@/constants/filters";
+import HomeFilters from "@/components/home/HomeFilters";
 
 const Home = () => {
   return (
@@ -34,6 +35,7 @@ const Home = () => {
           containerClasses={`max-md:flex hidden`}
         />
       </div>
+      <HomeFilters />
     </>
   )
 }
