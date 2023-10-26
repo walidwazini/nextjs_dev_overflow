@@ -3,7 +3,8 @@ import ThemeButton from "@/components/DemoThemeButton";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { LocalSearchbar } from "@/components/shared";
+import { Filter, LocalSearchbar } from "@/components/shared";
+import { HomePageFilters } from "@/constants/filters";
 
 const Home = () => {
   return (
@@ -26,7 +27,12 @@ const Home = () => {
           placeholder="Search for other question.."
           otherClasses='flex-1'
         />
-        <div>Filters</div>
+        {/* Filter for small screen  */}
+        <Filter 
+          filters={HomePageFilters}
+          otherClasses={`min-h-[56px] sm:min-w-[170px]`}
+          containerClasses={`max-md:flex hidden`}
+        />
       </div>
     </>
   )
