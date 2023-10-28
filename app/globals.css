@@ -21,6 +21,7 @@ body {
     @apply flex justify-start items-center;
   }
 
+  /* todo: Check shadow-light-100 class  */
   .card-wrapper {
     @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
   }

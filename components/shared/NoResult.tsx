@@ -2,13 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
-
-interface NoResultProps {
-  title: string
-  description: string
-  link: string
-  linkTitle: string
-}
+import { NoResultProps } from '@/types'
 
 const NoResult = ({ title, description, link, linkTitle }: NoResultProps) => {
   return (
