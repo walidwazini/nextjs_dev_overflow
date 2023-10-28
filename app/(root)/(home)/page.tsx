@@ -3,9 +3,51 @@ import ThemeButton from "@/components/DemoThemeButton";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Filter, LocalSearchbar } from "@/components/shared";
+import { Filter, LocalSearchbar, NoResult } from "@/components/shared";
 import { HomePageFilters } from "@/constants/filters";
 import HomeFilters from "@/components/home/HomeFilters";
+
+const questions = [
+  //   {
+  //     _id: 1,
+  //     text: 'How to bind data in Vue Js 3?',
+  //     tags: [{ _id: 1, name: 'javascript' }, { _id: 4, name: 'vue' }],
+  //     author: {
+  //       _id: 23,
+  //       name: 'Ava Reez'
+  //     },
+  //     upvotes: 32,
+  //     views: 59,
+  //     answers: 3,
+  //     createdAt: '2022-12-01'
+  //   },
+  //   {
+  //     _id: 2,
+  //     text: 'How to make seperate stytle for active route in react-router-dom@6 ?',
+  //     tags: [{ _id: 3, name: 'react' }],
+  //     author: {
+  //       _id: 334,
+  //       name: 'Noctis Skyva'
+  //     },
+  //     upvotes: 32,
+  //     views: 59,
+  //     answers: 3,
+  //     createdAt: '2022-07-25'
+  //   },
+  //   {
+  //     _id: 3,
+  //     text: '`export const` vs. `export default` in ES6',
+  //     tags: [{ _id: 1, name: 'javascript' }],
+  //     author: {
+  //       _id: 1023,
+  //       name: 'Riwonda Kuzon'
+  //     },
+  //     upvotes: 32,
+  //     views: 59,
+  //     answers: 3,
+  //     createdAt: '2022-02-15'
+  //   },
+]
 
 const Home = () => {
   return (
@@ -29,13 +71,28 @@ const Home = () => {
           otherClasses='flex-1'
         />
         {/* Filter for small screen  */}
-        <Filter 
+        <Filter
           filters={HomePageFilters}
           otherClasses={`min-h-[56px] sm:min-w-[170px]`}
           containerClasses={`max-md:flex hidden`}
         />
       </div>
       <HomeFilters />
+      <div className="mt-10 w-full flex flex-col gap-6 " >
+        {/* {questions.length > 0 && questions.map(question => (
+          <div key={question._id} >
+            {question.text}
+          </div>
+        ))} */}
+        {questions.length === 0 && <NoResult
+          title="There’s no question to show"
+          description={`Be the first to break the silence! 🚀 Ask a Question and 
+          kickstart the discussion. our query could be the next big thing others learn from. 
+          Get involved! 💡`}
+          link="/ask-question"
+          linkTitle="Ask a Question"
+        />}
+      </div>
     </>
   )
 }
