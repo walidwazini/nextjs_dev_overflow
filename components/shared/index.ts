@@ -6,11 +6,13 @@ import LocalSearchbar from "./search/LocalSearchbar";
 import Filter from "./Filter";
 import NoResult from "./NoResult";
 import QuestionCard from "../cards/QuestionCard";
+import Metric from "./Metric";
 
 export {
   Navbar,
    LeftSidebar,
   RightSidebar, RenderTag,
   LocalSearchbar, Filter,
-  NoResult,QuestionCard
+  NoResult,QuestionCard,
+  Metric,
 }

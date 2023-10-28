@@ -22,21 +22,30 @@ interface NoResultProps {
   linkTitle: string
 }
 
-// todo : Prop types not finalized
-// todo : all _id need to change to type string
 export interface QuestionCardProps {
-  _id: number;
-  text: string;
+  _id: string;
+  title: string;
   tags: {
-    _id: number;
+    _id: string;
     name: string;
   }[];
   author: {
-    _id: number;
+    _id: string;
     name: string;
+    picture: string;
   };
   upvotes: number;
   views: number;
-  answers: number
-  createdAt: string;
+  answers: Array<object>;
+  createdAt: Date;
+}
+
+export interface MetricProps {
+  imgUrl: string,
+  alt: string,
+  value: string | number,
+  title: string,
+  href?: string,
+  textStyles: string,
+  isAuthor?: boolean,
 }

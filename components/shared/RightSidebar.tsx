@@ -13,11 +13,11 @@ const sampleHotQuestions = [
 ]
 
 const popularTags = [
-  { _id: 1, name: 'Typescript', totalQuestion: 12 },
-  { _id: 2, name: 'Nextjs', totalQuestion: 14 },
-  { _id: 3, name: 'Reactjs', totalQuestion: 22 },
-  { _id: 4, name: 'Laravel', totalQuestion: 31 },
-  { _id: 5, name: 'Angular', totalQuestion: 17 },
+  { _id: 'tys112', name: 'Typescript', totalQuestion: 12 },
+  { _id: 'nxt23', name: 'Nextjs', totalQuestion: 14 },
+  { _id: 'rct902', name: 'Reactjs', totalQuestion: 22 },
+  { _id: 'lrvl11-', name: 'Laravel', totalQuestion: 31 },
+  { _id: 'ng-lr43', name: 'Angular', totalQuestion: 17 },
 ]
 
 // TODO try make the Image tag size as dynamic

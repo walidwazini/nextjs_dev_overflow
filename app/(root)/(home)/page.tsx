@@ -8,46 +8,36 @@ import { HomePageFilters } from "@/constants/filters";
 import HomeFilters from "@/components/home/HomeFilters";
 
 const questions = [
-    {
-      _id: 1,
-      text: 'How to bind data in Vue Js 3?',
-      tags: [{ _id: 1, name: 'javascript' }, { _id: 4, name: 'vue' }],
-      author: {
-        _id: 23,
-        name: 'Ava Reez'
-      },
-      upvotes: 32,
-      views: 59,
-      answers: 3,
-      createdAt: '2022-12-01'
+  {
+    _id: '1',
+    title: 'Cascading Deletes in SQLAlchemy?',
+    tags: [{ _id: '1', name: 'python' }, { _id: '2', name: 'sql' }],
+    author: {
+      _id: '1',
+      name: 'John Doe',
+      picture: 'john-doe.jpg',
     },
-    {
-      _id: 2,
-      text: 'How to make seperate stytle for active route in react-router-dom@6 ?',
-      tags: [{ _id: 3, name: 'react' }],
-      author: {
-        _id: 334,
-        name: 'Noctis Skyva'
-      },
-      upvotes: 32,
-      views: 59,
-      answers: 3,
-      createdAt: '2022-07-25'
+   // todo : test Milify npm  package to turn 1000 -> K
+    upvotes: 1500000,
+    views: 500552,
+    answers: [],
+    createdAt: new Date('2023-09-01T12:00:00.000Z'),
+  },
+  {
+    _id: '2',
+    title: 'How to center a div?',
+    tags: [{ _id: '3', name: 'css' }, { _id: '4', name: 'html' }],
+    author: {
+      _id: '2',
+      name: 'Jane Smith',
+      picture: 'jane-smith.jpg',
     },
-    {
-      _id: 3,
-      text: '`export const` vs. `export default` in ES6',
-      tags: [{ _id: 1, name: 'javascript' }],
-      author: {
-        _id: 1023,
-        name: 'Riwonda Kuzon'
-      },
-      upvotes: 32,
-      views: 59,
-      answers: 3,
-      createdAt: '2022-02-15'
-    },
-]
+    upvotes: 5,
+    views: 50,
+    answers: [],
+    createdAt: new Date('2022-09-02T10:30:00.000Z'),
+  },
+];
 
 const Home = () => {
   return (
@@ -80,11 +70,11 @@ const Home = () => {
       <HomeFilters />
       <div className="mt-10 w-full flex flex-col gap-6 " >
         {questions.length > 0 && questions.map(question => (
-          <QuestionCard 
-          key={question._id} _id={question._id}
-          text={question.text} author={question.author}
-          answers={question.answers} createdAt={question.createdAt}
-          tags={question.tags} upvotes={question.upvotes} views={question.views}
+          <QuestionCard
+            key={question._id} _id={question._id}
+            title={question.title} author={question.author}
+            answers={question.answers} createdAt={question.createdAt}
+            tags={question.tags} upvotes={question.upvotes} views={question.views}
           />
         ))}
         {questions.length === 0 && <NoResult
