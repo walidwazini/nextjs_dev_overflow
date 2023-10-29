@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { SignedIn } from '@clerk/nextjs'
 import moment from 'moment'
+import millify from 'millify'
 
 import { QuestionCardProps } from '@/types'
 import { Metric, RenderTag } from '../shared'
@@ -42,7 +43,7 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
           imgUrl={'/assets/icons/like.svg'}
           alt={'upvotes'}
           title={'Votes'}
-          value={upvotes}
+          value={millify(upvotes)}
           textStyles={`small-medium text-dark400_light800 `}
         />
         <Metric
@@ -56,7 +57,7 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
           imgUrl={'/assets/icons/eye.svg'}
           alt={'view'}
           title={'Views'}
-          value={views}
+          value={millify(views)}
           textStyles={`small-medium text-dark400_light800 `}
         />
       </div>
