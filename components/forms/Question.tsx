@@ -33,6 +33,7 @@ const Question = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-10 " >
+        {/* //? Title  */}
         <FormField
           control={form.control}
           name='title'
@@ -43,11 +44,53 @@ const Question = () => {
               </FormLabel>
               <FormControl className='mt-3.5' >
                 <Input
-                  className={`no-focus paragraph-regular background-light700_dark300 border-2  text-dark300_light700 min-h-[56px]`}
+                  className={`no-focus paragraph-regular background-light900_dark300 border-2  text-dark300_light700 min-h-[56px]`}
                 />
               </FormControl>
               <FormDescription className='body-regular mt-2.5 text-light-500 ' >
                 Be specific and imagine you&apos;re asking question to another person.
+              </FormDescription>
+              <FormMessage className='text-red-500' />
+            </FormItem>
+          )}
+        />
+
+        {/* //? Description / Explanation  */}
+        <FormField
+          control={form.control}
+          name='explanation'
+          render={({ field }) => (
+            <FormItem className='flex w-full flex-col gap-3 ' >
+              <FormLabel className='paragraph-semibold text-dark400_light800 ' >
+                Detail explanation of your problem <span className='text-primary-500' >*</span>
+              </FormLabel>
+              <FormControl className='mt-3.5' >
+                {/* TODO : add seperate WYSWYG editor  */}
+              </FormControl>
+              <FormDescription className='body-regular mt-2.5 text-light-500 ' >
+                Explain your problem minimum 20 characaters.
+              </FormDescription>
+              <FormMessage className='text-red-500' />
+            </FormItem>
+          )}
+        />
+        {/* //? Tags  */}
+        <FormField
+          control={form.control}
+          name='explanation'
+          render={({ field }) => (
+            <FormItem className='flex w-full flex-col gap-3 ' >
+              <FormLabel className='paragraph-semibold text-dark400_light800 ' >
+                Detail explanation of your problem <span className='text-primary-500' >*</span>
+              </FormLabel>
+              <FormControl className='mt-3.5' >
+                <Input
+                  className={`no-focus paragraph-regular background-light900_dark300 border-2  text-dark300_light700 min-h-[56px]`}
+                  placeholder='Add tags...'
+                />
+              </FormControl>
+              <FormDescription className='body-regular mt-2.5 text-light-500 ' >
+                 Add up to 3 tags to describe your question. Press enter to add a tag.
               </FormDescription>
               <FormMessage className='text-red-500' />
             </FormItem>
