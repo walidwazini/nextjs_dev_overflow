@@ -1,9 +1,10 @@
 "use client"
 
-import React from 'react'
+import React, { useRef } from 'react'
 import * as z from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { Editor } from '@tinymce/tinymce-react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,9 +14,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { QuestionSchema } from '@/lib/validation'
 
-
-
 const Question = () => {
+  const editorRef = useRef()
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current);
+    }
+  };
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -65,7 +70,29 @@ const Question = () => {
                 Detail explanation of your problem <span className='text-primary-500' >*</span>
               </FormLabel>
               <FormControl className='mt-3.5' >
-                {/* TODO : add seperate WYSWYG editor  */}
+                {/* WYSWYG editor  */}
+                <Editor
+                  apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                  onInit={(evt, editor) => {
+                    // @ts-ignore
+                    editorRef.current = editor
+                  }}
+                  initialValue=""
+                  init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
+                      'searchreplace', 'visualblocks', 'codesample', 'fullscreen',
+                      'insertdatetime', 'media', 'table'
+                    ],
+                    toolbar:
+                      'undo redo | ' +
+                      'codesample | bold italic forecolor | alignleft aligncenter |' +
+                      'alignright alignjustify | bullist numlist',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                  }}
+                />
               </FormControl>
               <FormDescription className='body-regular mt-2.5 text-light-500 ' >
                 Explain your problem minimum 20 characaters.
@@ -90,7 +117,7 @@ const Question = () => {
                 />
               </FormControl>
               <FormDescription className='body-regular mt-2.5 text-light-500 ' >
-                 Add up to 3 tags to describe your question. Press enter to add a tag.
+                Add up to 3 tags to describe your question. Press enter to add a tag.
               </FormDescription>
               <FormMessage className='text-red-500' />
             </FormItem>
