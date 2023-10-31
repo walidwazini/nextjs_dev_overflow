@@ -15,10 +15,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { QuestionSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
+import { createQuestion } from '@/lib/actions/question.action'
 
 const Question = () => {
   const editorRef = useRef()
-  const [tagDisable, setTagDisable] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionSchema>>({
@@ -30,10 +31,18 @@ const Question = () => {
     },
   })
 
+  const onTest = async () => await createQuestion({})
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
+    // setIsSubmitting(true)
+    // try {
+    //   await createQuestion({})
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
+// TODO: problem with reading title and explanation value
     console.log(values)
   }
 
@@ -73,8 +82,10 @@ const Question = () => {
 
   return (
     <Form {...form}>
+      <button onClick={onTest} className='p-4 bg-green-500 text-white' type='button'  >
+        Test
+      </button>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-10 " >
-        {/* //? Title  */}
         <FormField
           control={form.control}
           name='title'
@@ -181,7 +192,8 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <button className='px-3 py-2 rounded-lg bg-green-700' type="submit">Submit</button>
+        {/* <Button type="submit">Submit</Button> */}
       </form>
     </Form>
   )
