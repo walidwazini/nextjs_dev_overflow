@@ -35,15 +35,14 @@ const Question = () => {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
-    // setIsSubmitting(true)
-    // try {
-    //   await createQuestion({})
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    setIsSubmitting(true)
+    try {
+      await createQuestion({})
+      console.log(values)
+    } catch (error) {
+      console.log(error)
+    }
 
-// TODO: problem with reading title and explanation value
-    console.log(values)
   }
 
 
@@ -82,9 +81,6 @@ const Question = () => {
 
   return (
     <Form {...form}>
-      <button onClick={onTest} className='p-4 bg-green-500 text-white' type='button'  >
-        Test
-      </button>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-10 " >
         <FormField
           control={form.control}
@@ -96,6 +92,7 @@ const Question = () => {
               </FormLabel>
               <FormControl className='mt-3.5' >
                 <Input
+                  {...field}
                   className={`no-focus paragraph-regular background-light900_dark300 border-2  text-dark300_light700 min-h-[56px]`}
                 />
               </FormControl>
@@ -120,6 +117,9 @@ const Question = () => {
                 {/* WYSWYG editor  */}
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                  onEditorChange={(content) => {
+                    field.onChange(content)
+                  }}
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor
@@ -192,8 +192,13 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <button className='px-3 py-2 rounded-lg bg-green-700' type="submit">Submit</button>
-        {/* <Button type="submit">Submit</Button> */}
+        <Button
+          disabled={isSubmitting}
+          className=' bg-primary-500 w-full !text-light-900 uppercase font-semibold'
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   )
