@@ -21,7 +21,6 @@ const Question = () => {
   const editorRef = useRef()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
@@ -31,9 +30,6 @@ const Question = () => {
     },
   })
 
-  const onTest = async () => await createQuestion({})
-
-  // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
     setIsSubmitting(true)
     try {
@@ -44,7 +40,6 @@ const Question = () => {
     }
 
   }
-
 
   const handleInputKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>, field: any) => {
     if (ev.key === 'Enter' && field.name === 'tags') {
@@ -120,6 +115,7 @@ const Question = () => {
                   onEditorChange={(content) => {
                     field.onChange(content)
                   }}
+                  onBlur={field.onBlur}
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor
