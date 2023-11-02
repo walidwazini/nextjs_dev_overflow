@@ -37,7 +37,7 @@ const ThemeBtn = () => {
         </MenubarTrigger>
         <MenubarContent
           className={`absolute right-[-3rem] mt-3 min-w-[120px] py-2 rounded border 
-         dark:border-dark-400 dark:bg-dark-300 `}
+         dark:border-dark-400 dark:bg-dark-300 bg-white `}
         >
           {themes.map(theme => (
             <MenubarItem key={theme.value}
@@ -50,7 +50,7 @@ const ThemeBtn = () => {
                 }
               }}
 
-              className={`flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400 hover:cursor-pointer  `}
+              className={`flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400 hover:cursor-pointer focus:bg-slate-100  `}
             >
               <Image src={theme.icon} alt={theme.value} width={16} height={16}
                 className={`${mode === theme.value && 'active-theme'} `}

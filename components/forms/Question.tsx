@@ -18,7 +18,11 @@ import { Badge } from '../ui/badge'
 import { createQuestion } from '@/lib/actions/question.action'
 import { usePathname, useRouter } from 'next/navigation'
 
-const Question = () => {
+interface Props {
+  mongoUserId: string
+}
+
+const Question = ({ mongoUserId }: Props) => {
   const editorRef = useRef()
   const router = useRouter()
   const pathname = usePathname()
@@ -68,14 +72,13 @@ const Question = () => {
   const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
     setIsSubmitting(true)
     try {
-      await createQuestion({
-        title: values.title, 
-        content:values.explanation,
+      const newQuestion = await createQuestion({
+        title: values.title,
+        content: values.explanation,
         tags: values.tags,
-        // TODO: make requsest for user
-        // author: JSON.parse('123456') 
+        author: JSON.parse(mongoUserId)
       })
-      console.log(values)
+      console.log(newQuestion)
       router.push('/')
     } catch (error) {
       console.log(error)

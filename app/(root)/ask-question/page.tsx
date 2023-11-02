@@ -3,21 +3,24 @@ import { auth } from '@clerk/nextjs'
 
 import Question from '@/components/forms/Question'
 import { redirect } from 'next/navigation'
+import { getUserById } from '@/lib/actions/user.action'
 
-const AskQuestion = () => {
-  // * userId from Clerk will be used as clerkId in MongoDB
+const AskQuestion = async () => {
+  //  userId from Clerk will be used as clerkId in MongoDB
   const { userId } = auth()
+  console.log(userId)
 
   if (!userId) redirect('/sign-in')
 
-  // TODO fetch request to get user details from MongoDB
-  // const mongoUser = await getUserById()
+  const mongoUser = await getUserById({ userId })
+
+  console.log(mongoUser)
 
   return (
     <div>
       <h1 className='h1-bold text-darkl100_light900' >Ask a Question</h1>
       <div className='mt-8' >
-        <Question />
+        <Question mongoUserId={JSON.stringify(mongoUser._id)} />
       </div>
     </div>
   )

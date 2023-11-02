@@ -5,25 +5,16 @@ import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
 import User from "@/database/user.model";
 
-export interface CreateQuestionParams {
-  title: string;
-  content: string;
-  tags: string[];
-  author: string
-  path: string;
-}
-
 export async function createQuestion(params: any) {
   try {
     connectToDatabase();
 
     const { title, content, tags, author, path } = params;
 
-    // Create the question
     const newQuestion = await Question.create({
       title,
       content,
-      // author
+      author
     });
 
     const tagDocuments = [];
@@ -33,10 +24,9 @@ export async function createQuestion(params: any) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
         { $setOnInsert: { name: tag }, $push: { question: newQuestion._id } },
-        // * upsert : insert + update tag
+        //  upsert : insert + update tag
         { upsert: true, new: true }
       )
-      
       tagDocuments.push(existingTag._id);
     }
 
