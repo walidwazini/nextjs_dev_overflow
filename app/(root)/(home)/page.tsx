@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Filter, LocalSearchbar, NoResult, QuestionCard } from "@/components/shared";
 import { HomePageFilters } from "@/constants/filters";
 import HomeFilters from "@/components/home/HomeFilters";
+import { getQuestions } from "@/lib/actions/question.action";
 
-const questions = [
+const dummy_questions = [
   {
     _id: '1',
     title: 'Cascading Deletes in SQLAlchemy?',
@@ -39,7 +40,11 @@ const questions = [
   },
 ];
 
-const Home = () => {
+const Home = async () => {
+  const result = await getQuestions({})
+
+  // console.log()
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center " >
@@ -69,7 +74,7 @@ const Home = () => {
       </div>
       <HomeFilters />
       <div className="mt-10 w-full flex flex-col gap-6 " >
-        {questions.length > 0 && questions.map(question => (
+        {result.questions.length > 0 && result.questions.map(question => (
           <QuestionCard
             key={question._id} _id={question._id}
             title={question.title} author={question.author}
@@ -77,7 +82,7 @@ const Home = () => {
             tags={question.tags} upvotes={question.upvotes} views={question.views}
           />
         ))}
-        {questions.length === 0 && <NoResult
+        {result.questions.length === 0 && <NoResult
           title="There’s no question to show"
           description={`Be the first to break the silence! 🚀 Ask a Question and 
           kickstart the discussion. our query could be the next big thing others learn from. 

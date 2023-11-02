@@ -1,11 +1,46 @@
 "use server"
 
+import { Schema } from "mongoose";
+import { revalidatePath } from "next/cache";
+
 import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
-import User from "@/database/user.model";
+import User, { IUser } from "@/database/user.model";
 
-export async function createQuestion(params: any) {
+interface GetQuestionsParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: string;
+}
+
+interface CreateQuestionParams {
+  title: string;
+  content: string;
+  tags: string[];
+  author: Schema.Types.ObjectId | IUser;
+  path: string;
+}
+
+
+export const getQuestions = async (params: GetQuestionsParams) => {
+  try {
+    connectToDatabase();
+
+    const questions = await Question.find({})
+      .populate({ path: 'tags', model: Tag })
+      .populate({ path: 'author', model: User })
+      .sort({ createdAt: -1 })
+
+    return { questions };
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
+export async function createQuestion(params: CreateQuestionParams) {
   try {
     connectToDatabase();
 
@@ -37,6 +72,8 @@ export async function createQuestion(params: any) {
     // TODO Create an interaction record for the user's ask_question action
 
     // TODO Increment author's reputation by +5 for creating a question
+
+    revalidatePath(path)
 
   } catch (error) {
     console.log(error)
