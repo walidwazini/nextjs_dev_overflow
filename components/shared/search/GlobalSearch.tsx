@@ -15,7 +15,7 @@ const GlobalSearch = () => {
         <Image src={'/assets/icons/search.svg'} alt='search' width={0} height={0} className='cursor-pointer h-4 w-4 ' />
         <Input
           type='text' placeholder='Search globally'
-          value={''}
+          // value={''}
           className={`paragraph no-focus placeholder background-light800_darkgradient 
           border-none shadow-none outline-none  `}
         />

@@ -1,7 +1,7 @@
 import { Schema, models, model, Document } from 'mongoose';
 
 export interface IUser extends Document {
-  clerkId: string;
+  clerkId: string;   // * clerkId we get from @nextjs/clerk
   name: string;
   username: string;
   email: string;

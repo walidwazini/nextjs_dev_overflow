@@ -16,9 +16,12 @@ import { Input } from "@/components/ui/input"
 import { QuestionSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import { createQuestion } from '@/lib/actions/question.action'
+import { usePathname, useRouter } from 'next/navigation'
 
 const Question = () => {
   const editorRef = useRef()
+  const router = useRouter()
+  const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
@@ -29,17 +32,6 @@ const Question = () => {
       tags: [],
     },
   })
-
-  const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
-    setIsSubmitting(true)
-    try {
-      await createQuestion({})
-      console.log(values)
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
 
   const handleInputKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>, field: any) => {
     if (ev.key === 'Enter' && field.name === 'tags') {
@@ -55,13 +47,12 @@ const Question = () => {
             message: 'Tag must be less than 15 characters.'
           })
         }
-
-
         if (!field.value.includes(tagValue as never)) {
           form.setValue('tags', [...field.value, tagValue]);
           tagInput.value = ''
           form.clearErrors('tags');
         }
+
       } else {
         form.trigger();
       }
@@ -72,6 +63,24 @@ const Question = () => {
     const newTags = field.value.filter((t: string) => t !== tag);
 
     form.setValue('tags', newTags);
+  }
+
+  const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
+    setIsSubmitting(true)
+    try {
+      await createQuestion({
+        title: values.title, 
+        content:values.explanation,
+        tags: values.tags,
+        // TODO: make requsest for user
+        // author: JSON.parse('123456') 
+      })
+      console.log(values)
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   return (
