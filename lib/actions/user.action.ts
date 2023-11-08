@@ -18,3 +18,16 @@ export const getUserById = async (params: any) => {
     throw error
   }
 }
+
+export const createUser = async (userData: any) => {
+  try {
+    connectToDatabase()
+
+    const newUser = await User.create(userData)
+    
+    return newUser
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
