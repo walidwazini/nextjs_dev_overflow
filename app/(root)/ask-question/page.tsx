@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { getUserById } from '@/lib/actions/user.action'
 
 const AskQuestion = async () => {
+  // adasd asdas
   //  userId from Clerk will be used as clerkId in MongoDB
   const { userId } = auth()
 

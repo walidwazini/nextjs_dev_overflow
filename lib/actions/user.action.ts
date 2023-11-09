@@ -3,6 +3,14 @@
 import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
 
+interface CreateUserParams {
+  clerkId: string;
+  name: string;
+  username: string;
+  email: string;
+  picture: string;
+}
+
 export const getUserById = async (params: any) => {
   try {
     connectToDatabase()
@@ -19,11 +27,13 @@ export const getUserById = async (params: any) => {
   }
 }
 
-export const createUser = async (userData: any) => {
+export const createUser = async (userData: CreateUserParams) => {
   try {
     connectToDatabase()
 
     const newUser = await User.create(userData)
+    console.log(userData)
+    console.log(newUser)
     
     return newUser
   } catch (error) {
