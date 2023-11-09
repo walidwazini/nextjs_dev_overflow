@@ -6,7 +6,6 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
 
-  // TODO add webhook secret
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
   if (!WEBHOOK_SECRET) {
@@ -50,7 +49,7 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
+  // const { id } = evt.data;
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
