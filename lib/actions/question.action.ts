@@ -8,21 +8,7 @@ import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
 import User, { IUser } from "@/database/user.model";
 
-interface GetQuestionsParams {
-  page?: number;
-  pageSize?: number;
-  searchQuery?: string;
-  filter?: string;
-}
-
-interface CreateQuestionParams {
-  title: string;
-  content: string;
-  tags: string[];
-  author: Schema.Types.ObjectId | IUser;
-  path: string;
-}
-
+import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
 
 export const getQuestions = async (params: GetQuestionsParams) => {
   try {

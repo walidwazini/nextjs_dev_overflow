@@ -2,14 +2,8 @@
 
 import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
+import { CreateUserParams } from "./shared.types"
 
-interface CreateUserParams {
-  clerkId: string;
-  name: string;
-  username: string;
-  email: string;
-  picture: string;
-}
 
 export const getUserById = async (params: any) => {
   try {
