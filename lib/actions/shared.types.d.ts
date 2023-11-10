@@ -20,3 +20,17 @@ export interface CreateUserParams {
   email: string;
   picture: string;
 }
+
+export interface UpdateUserParams {
+  clerkId: string;
+  updateData: Partial<IUser>;
+  path: string;
+}
+
+export interface GetUserByIdParams {
+  userId: string;
+}
+
+export interface DeleteUserParams {
+  clerkId: string;
+}
