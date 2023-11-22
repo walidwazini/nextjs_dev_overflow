@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
+// import img from 'next/img'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SignedOut } from '@clerk/nextjs'
@@ -28,7 +28,7 @@ const LeftSidebar = () => {
                 : "text-dark300_light900"
                 }  flex links-center justify-start gap-4 bg-transparent p-4`}
             >
-              <Image
+              <img
                 src={link.imgURL}
                 alt={link.label}
                 width={20}
@@ -44,7 +44,7 @@ const LeftSidebar = () => {
           <div className="flex flex-col gap-3">
               <Link href="/sign-in">
                 <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
-                  <Image 
+                  <img 
                     src="/assets/icons/account.svg"
                     alt="login"
                     width={20}
@@ -58,7 +58,7 @@ const LeftSidebar = () => {
           
               <Link href="/sign-up">
                 <Button className='small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none'>
-                <Image 
+                <img 
                     src="/assets/icons/sign-up.svg"
                     alt="sign up"
                     width={20}

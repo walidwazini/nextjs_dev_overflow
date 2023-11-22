@@ -7,7 +7,7 @@ import { NoResultProps } from '@/types'
 const NoResult = ({ title, description, link, linkTitle }: NoResultProps) => {
   return (
     <div className="mt-10 flex w-full flex-col items-center justify-center">
-      <Image
+      <img
         src="/assets/images/light-illustration.png"
         alt="No result illustration"
         width={270}
@@ -15,7 +15,7 @@ const NoResult = ({ title, description, link, linkTitle }: NoResultProps) => {
         className="block object-contain dark:hidden"
       />
 
-      <Image
+      <img
         src="/assets/images/dark-illustration.png"
         alt="No result illustration"
         width={270}
