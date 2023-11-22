@@ -8,6 +8,7 @@ export default authMiddleware({
     '/',
     '/api/webhook',
     '/question/:id',
+    '/community'
   ],
   ignoredRoutes: [
     '/api/webhook','/api/chatgpt'

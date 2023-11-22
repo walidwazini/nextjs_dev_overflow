@@ -34,3 +34,10 @@ export interface GetUserByIdParams {
 export interface DeleteUserParams {
   clerkId: string;
 }
+
+export interface GetAllUsersParams {
+  page?: number;
+  pageSize?: number;
+  filter?: string;
+  searchQuery?: string; // Add searchQuery parameter
+}
