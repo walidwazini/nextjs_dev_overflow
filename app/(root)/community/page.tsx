@@ -4,6 +4,7 @@ import React from 'react'
 import { Filter, LocalSearchbar } from '@/components/shared'
 import { UserFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
+import UserCard from '@/components/cards/UserCard'
 
 const Community = async () => {
   const result = await getAllUsers({})
@@ -33,11 +34,17 @@ const Community = async () => {
       <section
         className='mt-12 flex flex-wrap gap-4 '
       >
-        <ul>
-          {result?.users.length > 0 && result?.users?.map(item => (
-            <li key={item._id} >{item.username}</li>
-          ))}
-        </ul>
+        {result?.users?.length > 0 && result?.users?.map(user => (
+          <UserCard key={user?._id} user={user} />
+        ))}
+        {result?.users?.length === 0 && (
+          <div className='paragraph-regular text-dark200_light800 mx-auto mt-20 max-w-4xl text-center' >
+            <p className='text-lg mb-8' >No users yet</p>
+            <Link href="/sign-up" className=" font-bold hover:underline text-accent-blue">
+              Join to be the first!
+            </Link>
+          </div>
+        )}
       </section>
     </>
   )
