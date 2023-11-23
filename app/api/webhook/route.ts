@@ -63,13 +63,11 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       picture: image_url,
     })
-    console.log(mongoUser)
 
     return NextResponse.json({ message: 'ok', user: mongoUser })
   } else if (eventType === 'user.updated') {
     const { id, email_addresses, image_url, username, first_name, last_name } = evt.data
 
-    console.log(username)
 
     // Create a new user in your database
     const mongoUser = await updateUser({
@@ -83,7 +81,6 @@ export async function POST(req: Request) {
       path: `/profile/${id}`
     })
 
-    console.log(mongoUser)
 
     return NextResponse.json({ message: 'OK', user: mongoUser })
 
@@ -91,7 +88,6 @@ export async function POST(req: Request) {
     const { id } = evt.data
 
     const user = await deleteUser({ clerkId: id! })
-    console.log('user delete')
 
     return NextResponse.json({ message: 'Successfully deleted.', user: user })
   }

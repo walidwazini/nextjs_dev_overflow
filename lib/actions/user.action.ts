@@ -29,8 +29,6 @@ export const createUser = async (userData: CreateUserParams) => {
     connectToDatabase()
 
     const newUser = await User.create(userData)
-    console.log(userData)
-    console.log(newUser)
 
     return newUser
   } catch (error) {
@@ -97,7 +95,6 @@ export const getAllUsers = async (params: GetAllUsersParams) => {
     // const { page = 1, pageSize = 20, filter, searchQuery } = params
 
     const users = await User.find({}).sort({ createdAt: -1 })
-    console.log(users)
 
     return { users }
 

@@ -9,8 +9,6 @@ import UserCard from '@/components/cards/UserCard'
 const Community = async () => {
   const result = await getAllUsers({})
 
-  console.log(result)
-
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center " >
