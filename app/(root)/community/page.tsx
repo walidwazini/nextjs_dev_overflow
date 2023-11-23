@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Filter, LocalSearchbar } from '@/components/shared'
-import { UserFilters } from '@/constants/filters'
+import { TagFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
 import UserCard from '@/components/cards/UserCard'
 
@@ -22,9 +22,8 @@ const Community = async () => {
           placeholder="Search for amazing minds.."
           otherClasses='flex-1'
         />
-        {/* Filter for small screen  */}
         <Filter
-          filters={UserFilters}
+          filters={TagFilters}
           otherClasses={`min-h-[56px] sm:min-w-[170px]`}
         // containerClasses={`max-md:flex hidden`}
         />

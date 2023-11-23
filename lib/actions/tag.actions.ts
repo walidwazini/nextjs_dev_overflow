@@ -9,7 +9,7 @@ export const getAllTags = async (params: GetAllTagsParams) => {
   try {
     connectToDatabase()
 
-    const tags = await Tag.find({})
+    const tags = await Tag.find({}).sort({ createdAt: -1 })
 
     return { tags }
 
