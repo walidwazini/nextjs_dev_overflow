@@ -2,7 +2,22 @@
 
 import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
-import { GetTopInteractedTags } from "./shared.types"
+import { GetAllTagsParams, GetTopInteractedTags } from "./shared.types"
+import Tag from "@/database/tag.model"
+
+export const getAllTags = async (params: GetAllTagsParams) => {
+  try {
+    connectToDatabase()
+
+    const tags = await Tag.find({})
+
+    return { tags }
+
+  } catch (error) {
+    console.log(error)
+
+  }
+}
 
 export const getTopInteractedTags = async (params: GetTopInteractedTags) => {
   try {
@@ -17,7 +32,7 @@ export const getTopInteractedTags = async (params: GetTopInteractedTags) => {
     // Find interactions for the user and group by tags...
     // TODO : Interactions...
 
-    return [ {_id: '1', name: 'tag'}, {_id: '2', name: 'tag2'}]
+    return [{ _id: '1', name: 'tag' }, { _id: '2', name: 'tag2' }]
 
   } catch (error) {
     console.log(error)

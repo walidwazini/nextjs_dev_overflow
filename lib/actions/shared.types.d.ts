@@ -1,3 +1,5 @@
+//  ----------- QUESTION ------------- 
+
 export interface GetQuestionsParams {
   page?: number;
   pageSize?: number;
@@ -12,6 +14,8 @@ export interface CreateQuestionParams {
   author: Schema.Types.ObjectId | IUser;
   path: string;
 }
+
+//  ------------- USERS -------------- 
 
 export interface CreateUserParams {
   clerkId: string;
@@ -42,7 +46,16 @@ export interface GetAllUsersParams {
   searchQuery?: string; // Add searchQuery parameter
 }
 
+//  ------------- TAGS -------------- 
+
 export interface GetTopInteractedTags {
   userId: string;
   limit?: number;
+}
+
+export interface GetAllTagsParams {
+  page?: number;
+  pageSize?: number;
+  filter?: string;
+  searchQuery?: string;
 }
