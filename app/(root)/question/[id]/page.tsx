@@ -58,7 +58,16 @@ const Question = async ({ searchParams, params }) => {
           textStyles={`small-medium text-dark400_light800 `}
         />
       </div>
-      <ParseHTML />
+      <ParseHTML data={result.content} />
+
+      TODO : render tags, answers textbox
+      <div>
+        {result.tags.map(tag => {
+          return (
+            <div key={tag.name}>{tag.name}</div>
+          )
+        })}
+      </div>
     </>
   )
 }
