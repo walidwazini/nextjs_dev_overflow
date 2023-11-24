@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import NoResult from "./NoResult";
 import QuestionCard from "../cards/QuestionCard";
 import Metric from "./Metric";
+import ParseHTML from "./ParseHTML";
 
 export {
   Navbar,
@@ -14,5 +15,5 @@ export {
   RightSidebar, RenderTag,
   LocalSearchbar, Filter,
   NoResult,QuestionCard,
-  Metric,
+  Metric, ParseHTML
 }

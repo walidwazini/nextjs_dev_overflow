@@ -73,6 +73,8 @@ export const getQuestionById = async (params: GetQuestionByIdParams) => {
     const { questionId } = params
 
     const question = await Question.findById(questionId)
+      .populate({ path: 'tags', model: Tag, select: '_id name' })
+      .populate({ path: 'author', model: User, select: '_id clerkId name picture' })
 
     return question
 
