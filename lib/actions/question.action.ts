@@ -8,7 +8,7 @@ import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
 import User, { IUser } from "@/database/user.model";
 
-import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
+import { CreateQuestionParams, GetQuestionByIdParams, GetQuestionsParams } from "./shared.types";
 
 export const getQuestions = async (params: GetQuestionsParams) => {
   try {
@@ -63,5 +63,21 @@ export async function createQuestion(params: CreateQuestionParams) {
 
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getQuestionById = async (params: GetQuestionByIdParams) => {
+  try {
+    connectToDatabase()
+
+    const { questionId } = params
+
+    const question = await Question.findById(questionId)
+
+    return question
+
+  } catch (error) {
+    console.log(error)
+    throw error
   }
 }
