@@ -17,6 +17,7 @@ import { QuestionSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import { createQuestion } from '@/lib/actions/question.action'
 import { usePathname, useRouter } from 'next/navigation'
+import { useTheme } from '@/context/ThemeProvider'
 
 interface Props {
   mongoUserId: string
@@ -24,6 +25,7 @@ interface Props {
 
 const Question = ({ mongoUserId }: Props) => {
   const editorRef = useRef()
+  const { mode } = useTheme()
   const router = useRouter()
   const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -145,7 +147,9 @@ const Question = ({ mongoUserId }: Props) => {
                       'undo redo | ' +
                       'codesample | bold italic forecolor | alignleft aligncenter |' +
                       'alignright alignjustify | bullist numlist',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                    skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
+                    content_css: mode === 'dark' && 'dark'
                   }}
                 />
               </FormControl>
@@ -178,7 +182,7 @@ const Question = ({ mongoUserId }: Props) => {
                       {field.value.map((tag: any) => (
                         <Badge key={tag} className={`subtle-medium background-light800_dark300 
                       text-light400_light500 flex items-center justify-center gap-2 
-                      rounded-md border-none px-4 py-2 capitalize`}
+                      rounded-md border-none px-4 py-2 uppercase`}
                           onClick={() => handleTagRemove(tag, field)}
                         >
                           {tag}

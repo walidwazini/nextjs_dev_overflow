@@ -5,6 +5,7 @@ import millify from 'millify'
 
 import { getQuestionById } from '@/lib/actions/question.action'
 import { Metric, ParseHTML, RenderTag } from '@/components/shared'
+import AnswerForm from '@/components/forms/AnswerForm'
 
 const Question = async ({ searchParams, params }) => {
   const result = await getQuestionById({ questionId: params.id })
@@ -59,15 +60,13 @@ const Question = async ({ searchParams, params }) => {
         />
       </div>
       <ParseHTML data={result.content} />
-
-      TODO : render tags, answers textbox
-      <div>
-        {result.tags.map(tag => {
-          return (
-            <div key={tag.name}>{tag.name}</div>
-          )
-        })}
+      <div className='mt-8 flex flex-wrap gap-2 ' >
+        {result.tags.map((tag: any) => (
+          <RenderTag key={tag._id} id={tag._id} name={tag.name} showCount={false} />
+        ))}
       </div>
+      <hr className="my-12 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
+      <AnswerForm />
     </>
   )
 }
