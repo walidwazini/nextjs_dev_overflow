@@ -63,3 +63,12 @@ export interface GetAllTagsParams {
   filter?: string;
   searchQuery?: string;
 }
+
+//  ---------  ANSWER  -------------
+
+export interface CreateAnswerParams {
+  content: string;
+  author: string; // User ID
+  question: string; // Question ID
+  path: string;
+}
