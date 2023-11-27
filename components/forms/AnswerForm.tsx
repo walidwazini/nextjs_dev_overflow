@@ -4,14 +4,23 @@ import React, { useRef, useState } from 'react'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { useForm } from 'react-hook-form'
 import { Editor } from '@tinymce/tinymce-react'
+import { usePathname } from 'next/navigation'
 
 import { AnswerSchema } from '@/lib/validation'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTheme } from '@/context/ThemeProvider'
 import { Button } from '../ui/button'
+import { createAnswer } from '@/lib/actions/answer.action'
 
-const AnswerForm = () => {
+interface Props {
+  question: string,
+  questionId: string,
+  authorId: string
+}
+
+const AnswerForm = ({ question, questionId, authorId }: Props) => {
+  const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { mode } = useTheme()
   const editorRef = useRef(null)
@@ -21,13 +30,39 @@ const AnswerForm = () => {
   })
 
 
-  const submitAnswerHandler = () => { }
+  const submitAnswerHandler = async (values: z.infer<typeof AnswerSchema>) => {
+    setIsSubmitting(true)
+
+    try {
+      console.log({val: values.answer, question, questionId, authorId })
+      await createAnswer({
+        content: values.answer,
+        question: JSON.parse(questionId),
+        author: JSON.parse(authorId),
+        path: pathname,
+      })
+
+      form.reset()
+
+      // Reset editor
+      if (editorRef.current) {
+        const editor = editorRef.current as any
+        editor.setContent('')
+      }
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
+
+  }
 
   return (
     <div>
       <div className='mt-6 flex flex-col justify-between gap-5 sm:flex-row sm:gap-2 sm:items-center ' >
         <h4 className='paragraph-semibold text-dark400_light800  ' >Write your answer here..</h4>
-        <Button 
+        <Button
           className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500 '
         >
           <img src='/assets/icons/stars.svg' alt='star' width={12} height={12} className='object-contain' />
@@ -81,7 +116,7 @@ const AnswerForm = () => {
           />
           <div className='flex justify-end' >
             <Button
-              type='button'
+              type='submit'
               className='primary-gradient w-fit text-white '
               disabled={isSubmitting}
             >
