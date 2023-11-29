@@ -16,7 +16,7 @@ export interface CreateQuestionParams {
 }
 
 export interface GetQuestionByIdParams {
-  questionId : string
+  questionId: string
 }
 
 //  ------------- USERS -------------- 
@@ -71,4 +71,11 @@ export interface CreateAnswerParams {
   author: string; // User ID
   question: string; // Question ID
   path: string;
+}
+
+export interface GetAnswersParams {
+  questionId: string;
+  sortBy?: string;
+  page?: number;
+  pageSize?: number;
 }

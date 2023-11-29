@@ -5,7 +5,7 @@ import millify from 'millify'
 import { auth } from '@clerk/nextjs'
 
 import { getQuestionById } from '@/lib/actions/question.action'
-import { Metric, ParseHTML, RenderTag } from '@/components/shared'
+import { AllAnswers, Metric, ParseHTML, RenderTag } from '@/components/shared'
 import AnswerForm from '@/components/forms/AnswerForm'
 import { getUserById } from '@/lib/actions/user.action'
 
@@ -21,7 +21,6 @@ const Question = async ({ searchParams, params }) => {
 
   const result = await getQuestionById({ questionId: params.id })
 
-  // console.log(mongoUser)
 
   return (
     <>
@@ -80,11 +79,15 @@ const Question = async ({ searchParams, params }) => {
       </div>
       <hr className="my-12 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
 
-      <AnswerForm
-        question={result.content}
-        questionId={JSON.stringify(result._id)}
-        authorId={JSON.stringify(mongoUser._id)}
-      />
+      <AllAnswers />
+
+      {userId && (
+        <AnswerForm
+          question={result.content}
+          questionId={JSON.stringify(result._id)}
+          authorId={JSON.stringify(mongoUser._id)}
+        />
+      )}
 
     </>
   )
