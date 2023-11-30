@@ -1,11 +1,65 @@
 "use client"
 
 import React from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import millify from 'millify'
 
 import { VotingBarProps } from '@/types'
+import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 
 const VotingBar = (props: VotingBarProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const voteHandler = async (action: string) => {
+    if (!props.userId) {
+      return;
+    }
+
+    if (action === 'upvote') {
+      if (props.type === 'question') {
+        await upvoteQuestion({
+          userId: JSON.parse(props.userId),
+          questionId: JSON.parse(props.itemId),
+          hasUpvoted: props.hasUpvoted,
+          hasDownvoted: props.hasDownvoted,
+          path: pathname
+        })
+      } else if (props.type === 'answer') {
+        // TODO : Upvote Answer
+        // await upvoteAnswer({
+        //   userId: JSON.parse(props.userId),
+        //   questionId: JSON.parse(props.itemId),
+        //   hasUpvoted: props.hasUpvoted,
+        //   hasDownvoted: props.hasDownvoted,
+        //   path: pathname
+        // })
+      }
+      // TODO : Show Toast
+    }
+
+    if (action === 'downvote') {
+      if (props.type === 'question') {
+        await downvoteQuestion({
+          userId: JSON.parse(props.userId),
+          questionId: JSON.parse(props.itemId),
+          hasUpvoted: props.hasUpvoted,
+          hasDownvoted: props.hasDownvoted,
+          path: pathname
+        })
+      } else if (props.type === 'answer') {
+        // TODO : Upvote Answer
+        // await upvoteAnswer({
+        //   userId: JSON.parse(props.userId),
+        //   questionId: JSON.parse(props.itemId),
+        //   hasUpvoted: props.hasUpvoted,
+        //   hasDownvoted: props.hasDownvoted,
+        //   path: pathname
+        // })
+      }
+      // TODO : Show Toast
+    }
+  }
 
   return (
     <div className="flex gap-5">
@@ -20,7 +74,7 @@ const VotingBar = (props: VotingBarProps) => {
             height={18}
             alt="upvote"
             className="cursor-pointer"
-            onClick={() => { }}
+            onClick={() => voteHandler('upvote')}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -40,7 +94,7 @@ const VotingBar = (props: VotingBarProps) => {
             height={18}
             alt="downvote"
             className="cursor-pointer"
-            onClick={() => { }}
+            onClick={() => voteHandler('downvote')}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -51,7 +105,7 @@ const VotingBar = (props: VotingBarProps) => {
         </div>
       </div>
 
-      {props.type === 'Question' && (
+      {props.type === 'question' && (
         <img
           src={props.hasSaved
             ? '/assets/icons/star-filled.svg'
@@ -61,6 +115,7 @@ const VotingBar = (props: VotingBarProps) => {
           height={18}
           alt="star"
           className="cursor-pointer"
+          // TODO : save function action
           onClick={() => { }}
         />
       )}

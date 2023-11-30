@@ -14,7 +14,7 @@ interface AllAnswersProps {
   filter?: string,
 }
 
-const AllAnswers = async ({ questionId, totalAnswers, page, filter }: AllAnswersProps) => {
+const AllAnswers = async ({ questionId, totalAnswers, page, filter,userId }: AllAnswersProps) => {
   const result = await getAnswers({
     questionId,
     page: page ? +page : 1,
@@ -52,14 +52,13 @@ const AllAnswers = async ({ questionId, totalAnswers, page, filter }: AllAnswers
               </Link>
               <div className="flex justify-end">
                 <VotingBar
-                  type={'Answer'}
-                  // itemId={result._id}
-                  // userId={}
+                  type={'answer'}
+                  itemId={JSON.stringify(answer._id)}
+                  userId={JSON.stringify(userId)}
                   upvotes={answer.upvotes.length}
-                  // hasUpvoted={}
+                  hasUpvoted={answer.upvotes.includes(userId)}
                   downvotes={answer.downvotes.length}
-                  // hasDownvoted={}
-                  // hadSaved={}
+                  hasDownvoted={answer.downvotes.includes(userId)}
                 />
               </div>
 

@@ -34,7 +34,6 @@ const AnswerForm = ({ question, questionId, authorId }: Props) => {
     setIsSubmitting(true)
 
     try {
-      console.log({val: values.answer, question, questionId, authorId })
       await createAnswer({
         content: values.answer,
         question: JSON.parse(questionId),

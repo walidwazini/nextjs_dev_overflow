@@ -4,7 +4,7 @@ import moment from 'moment'
 import millify from 'millify'
 import { auth } from '@clerk/nextjs'
 
-import { getQuestionById } from '@/lib/actions/question.action'
+import { getQuestionById, upvoteQuestion } from '@/lib/actions/question.action'
 import { AllAnswers, Metric, ParseHTML, RenderTag, VotingBar } from '@/components/shared'
 import AnswerForm from '@/components/forms/AnswerForm'
 import { getUserById } from '@/lib/actions/user.action'
@@ -20,10 +20,9 @@ const Question = async ({ searchParams, params }) => {
     mongoUser = await getUserById({ userId })
   }
 
-  const result = await getQuestionById({ questionId: params.id })
+  const question = await getQuestionById({ questionId: params.id })
 
-  console.log(result)
-
+  // console.log(question)
 
   return (
     <>
@@ -31,28 +30,28 @@ const Question = async ({ searchParams, params }) => {
         <div className='w-full flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2 ' >
           <Link href={'/'} className='flex items-center justify-start gap-1 ' >
             <img
-              src={result.author.picture} alt='profile'
+              src={question.author.picture} alt='profile'
               height={22} width={22} className='rounded-full'
             />
             <p className='paragraph-semibold text-dark300_light700 ' >
-              {result.author.name}
+              {question.author.name}
             </p>
           </Link>
           <div className='flex justify-end' >
             <VotingBar
-              type={'Question'}
-              // itemId={result._id}
-              // userId={}
-              upvotes={result.upvotes.length}
-              // hasUpvoted={}
-              downvotes={result.downvotes.length}
-            // hasDownvoted={}
-            // hadSaved={}
+              type={'question'}
+              itemId={JSON.stringify(question._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={question.upvotes.length}
+              hasUpvoted={question.upvotes.includes(mongoUser._id)}
+              downvotes={question.downvotes.length}
+              hasDownvoted={question.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(question._id)}
             />
           </div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-4 w-full text-left ' >
-          {result.title}
+          {question.title}
         </h2>
       </div>
 
@@ -60,7 +59,7 @@ const Question = async ({ searchParams, params }) => {
         <Metric
           imgUrl={'/assets/icons/clock.svg'}
           alt={'clock icon'}
-          value={`asked ${moment(result.createdAt).fromNow()}`}
+          value={`asked ${moment(question.createdAt).fromNow()}`}
           title={''}
           // href={`/profile/${author._id}`}
           isAuthor
@@ -69,7 +68,7 @@ const Question = async ({ searchParams, params }) => {
         <Metric
           imgUrl={'/assets/icons/message.svg'}
           alt={'message icon'}
-          value={millify(result.answers.length)}
+          value={millify(question.answers.length)}
           title={'Answer'}
           // href={`/profile/${author._id}`}
           isAuthor
@@ -79,29 +78,29 @@ const Question = async ({ searchParams, params }) => {
           imgUrl={'/assets/icons/eye.svg'}
           alt={'view'}
           title={'Views'}
-          value={millify(result.views)}
+          value={millify(question.views)}
           textStyles={`small-medium text-dark400_light800 `}
         />
       </div>
-      <ParseHTML data={result.content} />
+      <ParseHTML data={question.content} />
       <div className='mt-8 flex flex-wrap gap-2 ' >
-        {result.tags.map((tag: any) => (
+        {question.tags.map((tag: any) => (
           <RenderTag key={tag._id} id={tag._id} name={tag.name} showCount={false} />
         ))}
       </div>
       <hr className="my-12 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
 
       <AllAnswers
-        questionId={result._id}
+        questionId={question._id}
         // userId={JSON.stringify(mongoUser._id)}
-        totalAnswers={result.answers.length}
+        totalAnswers={question.answers.length}
       />
 
       {userId
         ? (
           <AnswerForm
-            question={result.content}
-            questionId={JSON.stringify(result._id)}
+            question={question.content}
+            questionId={JSON.stringify(question._id)}
             authorId={JSON.stringify(mongoUser._id)}
           />
         ) : (
