@@ -5,9 +5,10 @@ import millify from 'millify'
 import { auth } from '@clerk/nextjs'
 
 import { getQuestionById } from '@/lib/actions/question.action'
-import { AllAnswers, Metric, ParseHTML, RenderTag } from '@/components/shared'
+import { AllAnswers, Metric, ParseHTML, RenderTag, VotingBar } from '@/components/shared'
 import AnswerForm from '@/components/forms/AnswerForm'
 import { getUserById } from '@/lib/actions/user.action'
+import { Button } from '@/components/ui/button'
 
 const Question = async ({ searchParams, params }) => {
   // userId in Clerk database will be used as clerkId in mongoose
@@ -20,6 +21,8 @@ const Question = async ({ searchParams, params }) => {
   }
 
   const result = await getQuestionById({ questionId: params.id })
+
+  console.log(result)
 
 
   return (
@@ -36,7 +39,16 @@ const Question = async ({ searchParams, params }) => {
             </p>
           </Link>
           <div className='flex justify-end' >
-            VOTING FUNCTION
+            <VotingBar
+              type={'Question'}
+              // itemId={result._id}
+              // userId={}
+              upvotes={result.upvotes.length}
+              // hasUpvoted={}
+              downvotes={result.downvotes.length}
+            // hasDownvoted={}
+            // hadSaved={}
+            />
           </div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-4 w-full text-left ' >
@@ -85,13 +97,19 @@ const Question = async ({ searchParams, params }) => {
         totalAnswers={result.answers.length}
       />
 
-      {userId && (
-        <AnswerForm
-          question={result.content}
-          questionId={JSON.stringify(result._id)}
-          authorId={JSON.stringify(mongoUser._id)}
-        />
-      )}
+      {userId
+        ? (
+          <AnswerForm
+            question={result.content}
+            questionId={JSON.stringify(result._id)}
+            authorId={JSON.stringify(mongoUser._id)}
+          />
+        ) : (
+          <div className='text-center mt-10 text-2xl  ' >
+            Please log in to answer this question.
+          </div>
+        )
+      }
 
     </>
   )

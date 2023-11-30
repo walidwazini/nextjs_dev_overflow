@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { RenderTag } from '.'
 
 const sampleHotQuestions = [
@@ -19,10 +18,6 @@ const popularTags = [
   { _id: 'lrvl11-', name: 'Laravel', totalQuestion: 31 },
   { _id: 'ng-lr43', name: 'Angular', totalQuestion: 17 },
 ]
-
-// TODO try make the Image tag size as dynamic
-
-// TODO finalize render tag
 
 const RightSidebar = () => {
 
@@ -43,7 +38,7 @@ const RightSidebar = () => {
               className='flex cursor-pointer items-center justify-between gap-7 '
             >
               <p className='body-medium text-dark500_light700 ' >{item.question}</p>
-              <Image src={'/assets/icons/chevron-right.svg'} alt='icon' width={20} height={20} className='invert-colors' />
+              <img src={'/assets/icons/chevron-right.svg'} alt='icon' width={20} height={20} className='invert-colors' />
             </Link>
           ))}
         </div>
