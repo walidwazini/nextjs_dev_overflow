@@ -79,7 +79,11 @@ const Question = async ({ searchParams, params }) => {
       </div>
       <hr className="my-12 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
 
-      <AllAnswers />
+      <AllAnswers
+        questionId={result._id}
+        // userId={JSON.stringify(mongoUser._id)}
+        totalAnswers={result.answers.length}
+      />
 
       {userId && (
         <AnswerForm
