@@ -9,6 +9,7 @@ import QuestionCard from "../cards/QuestionCard";
 import Metric from "./Metric";
 import ParseHTML from "./ParseHTML";
 import AllAnswers from "./AllAnswers";
+import VotingBar from "./VotingBar";
 
 export {
   Navbar,
@@ -16,5 +17,6 @@ export {
   RightSidebar, RenderTag,
   LocalSearchbar, Filter,
   NoResult,QuestionCard,
-  Metric, ParseHTML, AllAnswers
+  Metric, ParseHTML, AllAnswers,
+  VotingBar
 }

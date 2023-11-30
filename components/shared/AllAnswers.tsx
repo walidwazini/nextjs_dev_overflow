@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import { Filter, ParseHTML } from '.'
+import { Filter, ParseHTML, VotingBar } from '.'
 import { getAnswers } from '@/lib/actions/answer.action'
 import { AnswerFilters } from '@/constants/filters'
 import Link from 'next/link'
@@ -51,8 +51,16 @@ const AllAnswers = async ({ questionId, totalAnswers, page, filter }: AllAnswers
                 </div>
               </Link>
               <div className="flex justify-end">
-               // TODO : vote display, pagination
-                Votes
+                <VotingBar
+                  type={'Answer'}
+                  // itemId={result._id}
+                  // userId={}
+                  upvotes={answer.upvotes.length}
+                  // hasUpvoted={}
+                  downvotes={answer.downvotes.length}
+                  // hasDownvoted={}
+                  // hadSaved={}
+                />
               </div>
 
             </div>
@@ -62,6 +70,7 @@ const AllAnswers = async ({ questionId, totalAnswers, page, filter }: AllAnswers
       </div>
 
       <div className="mt-10 w-full">
+        // TODO : pagination
         Pagination
       </div>
     </div>

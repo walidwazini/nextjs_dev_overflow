@@ -49,3 +49,14 @@ export interface MetricProps {
   textStyles: string,
   isAuthor?: boolean,
 }
+
+export interface VotingBarProps {
+  type: string,
+  itemId: string,
+  userId: string,
+  upvotes: number,
+  hasUpvoted: boolean,
+  downvotes: number,
+  hasDownvoted: boolean,
+  hasSaved?: boolean
+}
