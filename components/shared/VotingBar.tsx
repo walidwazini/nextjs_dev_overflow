@@ -6,6 +6,7 @@ import millify from 'millify'
 
 import { VotingBarProps } from '@/types'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
+import { downvoteAnswer, upvoteAnswer } from '@/lib/actions/answer.action'
 
 const VotingBar = (props: VotingBarProps) => {
   const router = useRouter()
@@ -26,14 +27,13 @@ const VotingBar = (props: VotingBarProps) => {
           path: pathname
         })
       } else if (props.type === 'answer') {
-        // TODO : Upvote Answer
-        // await upvoteAnswer({
-        //   userId: JSON.parse(props.userId),
-        //   questionId: JSON.parse(props.itemId),
-        //   hasUpvoted: props.hasUpvoted,
-        //   hasDownvoted: props.hasDownvoted,
-        //   path: pathname
-        // })
+        await upvoteAnswer({
+          userId: JSON.parse(props.userId),
+          answerId: JSON.parse(props.itemId),
+          hasUpvoted: props.hasUpvoted,
+          hasDownvoted: props.hasDownvoted,
+          path: pathname
+        })
       }
       // TODO : Show Toast
     }
@@ -48,14 +48,13 @@ const VotingBar = (props: VotingBarProps) => {
           path: pathname
         })
       } else if (props.type === 'answer') {
-        // TODO : Upvote Answer
-        // await upvoteAnswer({
-        //   userId: JSON.parse(props.userId),
-        //   questionId: JSON.parse(props.itemId),
-        //   hasUpvoted: props.hasUpvoted,
-        //   hasDownvoted: props.hasDownvoted,
-        //   path: pathname
-        // })
+        await downvoteAnswer({
+          userId: JSON.parse(props.userId),
+          answerId: JSON.parse(props.itemId),
+          hasUpvoted: props.hasUpvoted,
+          hasDownvoted: props.hasDownvoted,
+          path: pathname
+        })
       }
       // TODO : Show Toast
     }
