@@ -27,6 +27,13 @@ export interface QuestionVoteParams {
   path: string;
 }
 
+export interface QuestionSaveParams {
+  questionId: string;
+  userId: string;
+  // hasSaved: boolean;
+  path: string;
+}
+
 //  ------------- USERS -------------- 
 
 export interface CreateUserParams {

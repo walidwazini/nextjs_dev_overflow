@@ -45,7 +45,7 @@ const Home = async () => {
             key={question._id} _id={question._id}
             title={question.title} author={question.author}
             answers={question.answers} createdAt={question.createdAt}
-            tags={question.tags} upvotes={question.upvotes} views={question.views}
+            tags={question.tags} upvotes={question.upvotes.length} views={question.views}
           />
         ))}
         {result.questions.length === 0 && <NoResult

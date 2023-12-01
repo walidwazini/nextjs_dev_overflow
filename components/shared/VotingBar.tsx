@@ -7,6 +7,7 @@ import millify from 'millify'
 import { VotingBarProps } from '@/types'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 import { downvoteAnswer, upvoteAnswer } from '@/lib/actions/answer.action'
+import { toggleSaveQuestion } from '@/lib/actions/user.action'
 
 const VotingBar = (props: VotingBarProps) => {
   const router = useRouter()
@@ -58,6 +59,18 @@ const VotingBar = (props: VotingBarProps) => {
       }
       // TODO : Show Toast
     }
+  }
+
+  const saveHandler = async () => {
+    console.log(props.userId)
+    console.log(JSON.parse(props.userId))
+
+    await toggleSaveQuestion({
+      userId: JSON.parse(props.userId),
+      questionId: JSON.parse(props.itemId),
+      path: pathname
+    })
+
   }
 
   return (
@@ -114,8 +127,7 @@ const VotingBar = (props: VotingBarProps) => {
           height={18}
           alt="star"
           className="cursor-pointer"
-          // TODO : save function action
-          onClick={() => { }}
+          onClick={() => saveHandler()}
         />
       )}
     </div>
