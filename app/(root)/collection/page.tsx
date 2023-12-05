@@ -1,14 +1,33 @@
 import ThemeButton from "@/components/DemoThemeButton";
 import Link from "next/link";
+import { auth } from '@clerk/nextjs'
 
-import { Button } from "@/components/ui/button";
 import { Filter, LocalSearchbar, NoResult, QuestionCard } from "@/components/shared";
-import { HomePageFilters, QuestionFilters } from "@/constants/filters";
-import HomeFilters from "@/components/home/HomeFilters";
-import { getQuestions } from "@/lib/actions/question.action";
+import { getSavedQuestions } from "@/lib/actions/user.action";
+import { QuestionFilters } from "@/constants/filters";
+import { Key } from "react";
+
+
+// Only for mapping result
+interface QuestionType {
+  _id: string;
+  title: string;
+  author: { _id: string; name: string; picture: string; };
+  answers: object[];
+  createdAt: Date;
+  tags: { _id: string; name: string; }[];
+  upvotes: string | any[];
+  views: number;
+}
 
 const CollectionPage = async () => {
-  const result = await getQuestions({})
+  const { userId } = auth()
+
+  if (!userId) return null;
+
+  const result = await getSavedQuestions({
+    clerkId: userId,
+  })
 
 
   return (
@@ -29,7 +48,7 @@ const CollectionPage = async () => {
         />
       </div>
       <div className="mt-10 w-full flex flex-col gap-6 " >
-        {result.questions.length > 0 && result.questions.map(question => (
+        {result?.questions.length > 0 && result?.questions.map((question: QuestionType) => (
           <QuestionCard
             key={question._id} _id={question._id}
             title={question.title} author={question.author}
@@ -37,7 +56,7 @@ const CollectionPage = async () => {
             tags={question.tags} upvotes={question.upvotes.length} views={question.views}
           />
         ))}
-        {result.questions.length === 0 && <NoResult
+        {result?.questions.length === 0 && <NoResult
           title="There’s no saved question to show."
           description={`Be the first to break the silence! 🚀 Ask a Question and 
           kickstart the discussion. our query could be the next big thing others learn from. 

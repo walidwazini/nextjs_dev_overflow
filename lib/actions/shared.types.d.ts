@@ -37,7 +37,7 @@ export interface QuestionSaveParams {
 export interface GetSavedQuestionParams {
   clerkId: string,
   page?: number,
-  pageSize: number,
+  pageSize?: number,
   filter? : string,
   searchQuery? : string
 }
