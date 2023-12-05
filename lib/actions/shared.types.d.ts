@@ -42,6 +42,11 @@ export interface GetSavedQuestionParams {
   searchQuery? : string
 }
 
+
+export interface ViewQuestionParams {
+  questionId: string;
+  userId: string | undefined;
+}
 //  ------------- USERS -------------- 
 
 export interface CreateUserParams {
