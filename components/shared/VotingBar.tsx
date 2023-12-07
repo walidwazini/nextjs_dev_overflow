@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import millify from 'millify'
 
@@ -8,31 +8,33 @@ import { VotingBarProps } from '@/types'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 import { downvoteAnswer, upvoteAnswer } from '@/lib/actions/answer.action'
 import { toggleSaveQuestion } from '@/lib/actions/user.action'
+import { viewQuestion } from '@/lib/actions/interaction.action'
 
 const VotingBar = (props: VotingBarProps) => {
   const router = useRouter()
   const pathname = usePathname()
+  const { itemId, userId, type, downvotes, hasDownvoted, upvotes, hasUpvoted, hasSaved } = props
 
   const voteHandler = async (action: string) => {
-    if (!props.userId) {
+    if (!userId) {
       return;
     }
 
     if (action === 'upvote') {
-      if (props.type === 'question') {
+      if (type === 'question') {
         await upvoteQuestion({
-          userId: JSON.parse(props.userId),
-          questionId: JSON.parse(props.itemId),
-          hasUpvoted: props.hasUpvoted,
-          hasDownvoted: props.hasDownvoted,
+          userId: JSON.parse(userId),
+          questionId: JSON.parse(itemId),
+          hasUpvoted: hasUpvoted,
+          hasDownvoted: hasDownvoted,
           path: pathname
         })
-      } else if (props.type === 'answer') {
+      } else if (type === 'answer') {
         await upvoteAnswer({
-          userId: JSON.parse(props.userId),
-          answerId: JSON.parse(props.itemId),
-          hasUpvoted: props.hasUpvoted,
-          hasDownvoted: props.hasDownvoted,
+          userId: JSON.parse(userId),
+          answerId: JSON.parse(itemId),
+          hasUpvoted: hasUpvoted,
+          hasDownvoted: hasDownvoted,
           path: pathname
         })
       }
@@ -40,20 +42,20 @@ const VotingBar = (props: VotingBarProps) => {
     }
 
     if (action === 'downvote') {
-      if (props.type === 'question') {
+      if (type === 'question') {
         await downvoteQuestion({
-          userId: JSON.parse(props.userId),
-          questionId: JSON.parse(props.itemId),
-          hasUpvoted: props.hasUpvoted,
-          hasDownvoted: props.hasDownvoted,
+          userId: JSON.parse(userId),
+          questionId: JSON.parse(itemId),
+          hasUpvoted: hasUpvoted,
+          hasDownvoted: hasDownvoted,
           path: pathname
         })
-      } else if (props.type === 'answer') {
+      } else if (type === 'answer') {
         await downvoteAnswer({
-          userId: JSON.parse(props.userId),
-          answerId: JSON.parse(props.itemId),
-          hasUpvoted: props.hasUpvoted,
-          hasDownvoted: props.hasDownvoted,
+          userId: JSON.parse(userId),
+          answerId: JSON.parse(itemId),
+          hasUpvoted: hasUpvoted,
+          hasDownvoted: hasDownvoted,
           path: pathname
         })
       }
@@ -62,23 +64,29 @@ const VotingBar = (props: VotingBarProps) => {
   }
 
   const saveHandler = async () => {
-    console.log(props.userId)
-    console.log(JSON.parse(props.userId))
+    console.log(userId)
+    console.log(JSON.parse(userId))
 
     await toggleSaveQuestion({
-      userId: JSON.parse(props.userId),
-      questionId: JSON.parse(props.itemId),
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
       path: pathname
     })
-
   }
+
+  useEffect(() => {
+    viewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined,
+    })
+  }, [itemId, userId, pathname, router]);
 
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
         <div className="flex-center gap-1.5">
           <img
-            src={props.hasUpvoted
+            src={hasUpvoted
               ? '/assets/icons/upvoted.svg'
               : '/assets/icons/upvote.svg'
             }
@@ -91,14 +99,14 @@ const VotingBar = (props: VotingBarProps) => {
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
-              {millify(props.upvotes)}
+              {millify(upvotes)}
             </p>
           </div>
         </div>
 
         <div className="flex-center gap-1.5">
           <img
-            src={props.hasDownvoted
+            src={hasDownvoted
               ? '/assets/icons/downvoted.svg'
               : '/assets/icons/downvote.svg'
             }
@@ -111,15 +119,15 @@ const VotingBar = (props: VotingBarProps) => {
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
-              {millify(props.downvotes)}
+              {millify(downvotes)}
             </p>
           </div>
         </div>
       </div>
 
-      {props.type === 'question' && (
+      {type === 'question' && (
         <img
-          src={props.hasSaved
+          src={hasSaved
             ? '/assets/icons/star-filled.svg'
             : '/assets/icons/star-red.svg'
           }
