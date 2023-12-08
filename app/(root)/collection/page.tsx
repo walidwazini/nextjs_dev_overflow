@@ -7,7 +7,6 @@ import { getSavedQuestions } from "@/lib/actions/user.action";
 import { QuestionFilters } from "@/constants/filters";
 import { Key } from "react";
 
-
 // Only for mapping result
 interface QuestionType {
   _id: string;

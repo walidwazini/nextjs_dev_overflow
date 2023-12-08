@@ -30,6 +30,7 @@ export const getQuestions = async (params: GetQuestionsParams) => {
 }
 
 export async function createQuestion(params: CreateQuestionParams) {
+  // TODO : questions[] did not appear on Tags collection, need to debug
   try {
     connectToDatabase();
 

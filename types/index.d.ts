@@ -60,3 +60,8 @@ export interface VotingBarProps {
   hasDownvoted: boolean,
   hasSaved?: boolean
 }
+
+export interface URLProps {
+  params: { id: string };
+  searchParams: { [key: string]: string | undefined };
+}
