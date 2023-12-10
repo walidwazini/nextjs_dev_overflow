@@ -15,6 +15,8 @@ const VotingBar = (props: VotingBarProps) => {
   const pathname = usePathname()
   const { itemId, userId, type, downvotes, hasDownvoted, upvotes, hasUpvoted, hasSaved } = props
 
+  // console.log(userId)
+
   const voteHandler = async (action: string) => {
     if (!userId) {
       return;

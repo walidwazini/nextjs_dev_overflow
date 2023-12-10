@@ -10,21 +10,21 @@ import AnswerForm from '@/components/forms/AnswerForm'
 import { getUserById } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 
+interface Props {
+  searchParams: string, params: { id: string }
+}
 
-const Question = async ({ searchParams, params }) => {
-  // userId in Clerk database will be used as clerkId in mongoose
+const Question = async ({ searchParams, params }: Props) => {
+  // ? userId in Clerk database will be used as clerkId in mongoose
   const { userId } = auth()
-  
+
   let mongoUser
-  
-  // TODO fix error where case of mongoUser === undefined (no login user)
+
   if (userId) {
     mongoUser = await getUserById({ userId })
   }
 
   const question = await getQuestionById({ questionId: params.id })
-
-  // console.log(question)
 
   return (
     <>
@@ -43,11 +43,11 @@ const Question = async ({ searchParams, params }) => {
             <VotingBar
               type={'question'}
               itemId={JSON.stringify(question._id)}
-              userId={JSON.stringify(mongoUser._id)}
+              userId={JSON.stringify(mongoUser?._id)}
               upvotes={question.upvotes.length}
-              hasUpvoted={question.upvotes.includes(mongoUser._id)}
+              hasUpvoted={question.upvotes.includes(mongoUser?._id)}
               downvotes={question.downvotes.length}
-              hasDownvoted={question.downvotes.includes(mongoUser._id)}
+              hasDownvoted={question.downvotes.includes(mongoUser?._id)}
               hasSaved={mongoUser?.saved.includes(question._id)}
             />
           </div>
@@ -94,7 +94,7 @@ const Question = async ({ searchParams, params }) => {
 
       <AllAnswers
         questionId={question._id}
-        userId={mongoUser._id}
+        userId={mongoUser?._id}
         totalAnswers={question.answers.length}
       />
 
@@ -103,7 +103,7 @@ const Question = async ({ searchParams, params }) => {
           <AnswerForm
             question={question.content}
             questionId={JSON.stringify(question._id)}
-            authorId={JSON.stringify(mongoUser._id)}
+            authorId={JSON.stringify(mongoUser?._id)}
           />
         ) : (
           <div className='text-center mt-10 text-2xl  ' >
