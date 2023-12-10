@@ -65,3 +65,9 @@ export interface URLProps {
   params: { id: string };
   searchParams: { [key: string]: string | undefined };
 }
+
+export interface ProfileLinkProps {
+  imgUrl: string,
+  href?: string,
+  title: string
+}

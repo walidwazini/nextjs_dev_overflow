@@ -7,6 +7,7 @@ import { URLProps } from '@/types'
 import { getUserInfo } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ProfileLink } from '@/components/shared'
 
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
@@ -31,13 +32,29 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             <p className="paragraph-regular text-dark200_light800">@{userInfo.user.username}</p>
 
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo.user.location && (
-                <div>Location</div>
+              {userInfo.user.portfolioWebsite && (
+                <ProfileLink
+                  imgUrl="/assets/icons/link.svg"
+                  href={userInfo.user.portfolioWebsite}
+                  title={'Portfolio'}
+                />
               )}
-              <div>
-                Joined on {moment(userInfo?.user?.joinedAt).format('Do MMM YYYY')}
-              </div>
+              {userInfo.user.location && (
+                <ProfileLink
+                  imgUrl="/assets/icons/location.svg"
+                  title={userInfo.user.location}
+                />
+              )}
+              <ProfileLink
+                imgUrl='/assets/icons/calendar.svg'
+                title={moment(userInfo?.user?.joinedAt).format('MMM YYYY')}
+              />
             </div>
+            {userInfo.user.bio && (
+              <p className='paragraph-regular text-dark400_light800 mt-8 ' >
+
+              </p>
+            )}
           </div>
         </div>
 
@@ -66,7 +83,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             POSTS
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-           ANSWERS
+            ANSWERS
           </TabsContent>
         </Tabs>
       </div>
