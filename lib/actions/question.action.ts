@@ -30,7 +30,6 @@ export const getQuestions = async (params: GetQuestionsParams) => {
 }
 
 export async function createQuestion(params: CreateQuestionParams) {
-  // TODO : questions[] did not appear on Tags collection, need to debug
   try {
     connectToDatabase();
 
@@ -48,7 +47,7 @@ export async function createQuestion(params: CreateQuestionParams) {
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
-        { $setOnInsert: { name: tag }, $push: { question: newQuestion._id } },
+        { $setOnInsert: { name: tag }, $push: { questions: newQuestion._id } },
         //  upsert : insert + update tag
         { upsert: true, new: true }
       )

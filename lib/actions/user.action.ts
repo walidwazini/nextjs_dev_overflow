@@ -6,11 +6,12 @@ import { FilterQuery } from "mongoose"
 import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
 import {
-  CreateUserParams, DeleteUserParams, GetAllUsersParams, GetSavedQuestionParams, QuestionSaveParams,
-  UpdateUserParams,
+  CreateUserParams, DeleteUserParams, GetAllUsersParams,
+  UpdateUserParams, GetSavedQuestionParams, QuestionSaveParams,
 } from "./shared.types"
 import Question from "@/database/question.model"
 import Tag from "@/database/tag.model"
+import Answer from "@/database/answer.model"
 
 
 export const getUserById = async (params: any) => {
@@ -175,5 +176,26 @@ export const getSavedQuestions = async (params: GetSavedQuestionParams) => {
 
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getUserInfo = async ({ userId }: { userId: string }) => {
+  try {
+    connectToDatabase()
+
+    const user = await User.findOne({ clerkId: userId })
+
+    if (!user) {
+      throw new Error('User not found.')
+    }
+
+    const totalQuestions = await Question.countDocuments({ author: user._id })
+    const totalAnswers = await Answer.countDocuments({ author: user._id })
+
+    return { user, totalQuestions, totalAnswers }
+
+  } catch (error) {
+    console.log(error)
+    throw error
   }
 }

@@ -10,12 +10,14 @@ import AnswerForm from '@/components/forms/AnswerForm'
 import { getUserById } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 
+
 const Question = async ({ searchParams, params }) => {
   // userId in Clerk database will be used as clerkId in mongoose
   const { userId } = auth()
-
+  
   let mongoUser
-
+  
+  // TODO fix error where case of mongoUser === undefined (no login user)
   if (userId) {
     mongoUser = await getUserById({ userId })
   }
