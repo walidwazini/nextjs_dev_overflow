@@ -7,7 +7,7 @@ import { URLProps } from '@/types'
 import { getUserInfo } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProfileLink } from '@/components/shared'
+import { ProfileLink, Stats } from '@/components/shared'
 
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
@@ -52,7 +52,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             </div>
             {userInfo.user.bio && (
               <p className='paragraph-regular text-dark400_light800 mt-8 ' >
-
+                {userInfo.user.bio}
               </p>
             )}
           </div>
@@ -71,7 +71,10 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
         </div>
       </div>
       <div>
-        TODO Stats..
+        <Stats
+          totalQuestions={userInfo.totalQuestions}
+          totalAnswers={userInfo.totalAnswers}
+        />
       </div>
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
@@ -80,9 +83,11 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             <TabsTrigger value="answers" className="tab">Answers</TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts" className="mt-5 flex w-full flex-col gap-6">
+            // TODO change to question tab
             POSTS
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
+            // TODO change to answers tab
             ANSWERS
           </TabsContent>
         </Tabs>

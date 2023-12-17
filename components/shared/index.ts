@@ -11,6 +11,7 @@ import ParseHTML from "./ParseHTML";
 import AllAnswers from "./AllAnswers";
 import VotingBar from "./VotingBar";
 import ProfileLink from "./ProfileLink";
+import Stats from "./Stats";
 
 export {
   Navbar,
@@ -19,5 +20,5 @@ export {
   LocalSearchbar, Filter,
   NoResult,QuestionCard,
   Metric, ParseHTML, AllAnswers,
-  VotingBar, ProfileLink
+  VotingBar, ProfileLink, Stats
 }

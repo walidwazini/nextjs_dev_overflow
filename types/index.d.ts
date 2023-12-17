@@ -71,3 +71,14 @@ export interface ProfileLinkProps {
   href?: string,
   title: string
 }
+
+export interface StatsProps {
+  totalQuestions: number,
+  totalAnswers: number
+}
+
+export interface StatsCardProps { 
+   imgUrl: string
+   value: number
+   title: string
+}
