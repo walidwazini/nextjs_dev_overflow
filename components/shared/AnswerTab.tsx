@@ -2,9 +2,12 @@ import React from 'react'
 
 import { AnswerTabProps } from '@/types'
 import { getUserAnswers } from '@/lib/actions/user.action'
+import { AnswerCard } from '.'
 
 const AnswerTab = async ({ userId, clerkId, searchParams }: AnswerTabProps) => {
   const { answers, totalAnswers } = await getUserAnswers({ userId, page: 1 })
+
+  console.log(answers)
 
   return (
     <>
@@ -18,10 +21,14 @@ const AnswerTab = async ({ userId, clerkId, searchParams }: AnswerTabProps) => {
       )}
       {answers.map(answer => (
         <AnswerCard
-          key={answer._id} _id={answer._id}
-          title={answer.title} author={answer.author}
-          answers={answer.answers} createdAt={answer.createdAt}
-          tags={answer.tags} upvotes={answer.upvotes.length} views={answer.views}
+          key={answer._id}
+          clerkId={clerkId}
+          _id={answer._id}
+          question={answer.question}
+          content={answer.content}
+          author={answer.author}
+          upvotes={answer.upvotes.length}
+          createdAt={answer.createdAt}
         />
       ))}
     </>

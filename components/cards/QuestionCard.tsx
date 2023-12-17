@@ -13,7 +13,7 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
-          <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
+          <span className="subtle-regular text-dark400_light700 line-clamp-1 flex">
             {moment(createdAt).fromNow()}
           </span>
           <Link href={`/question/${_id}`}>

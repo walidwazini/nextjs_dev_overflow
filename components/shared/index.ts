@@ -14,6 +14,7 @@ import ProfileLink from "./ProfileLink";
 import Stats from "./Stats";
 import QuestionTab from "./QuestionTab";
 import AnswerTab from "./AnswerTab";
+import AnswerCard from "../cards/AnswerCard";
 
 export {
   Navbar,
@@ -24,5 +25,5 @@ export {
   Metric, ParseHTML, AllAnswers,
   VotingBar, ProfileLink, Stats,
   QuestionTab, AnswerTab,
-  
+  AnswerCard,
 }

@@ -7,7 +7,7 @@ import { URLProps } from '@/types'
 import { getUserInfo } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProfileLink, QuestionTab, Stats } from '@/components/shared'
+import { AnswerTab, ProfileLink, QuestionTab, Stats } from '@/components/shared'
 
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
@@ -86,8 +86,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             <QuestionTab searchParams={searchParams} userId={userInfo.user._id} clerkId={clerkId as string} />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            // TODO change to answers tab
-            ANSWERS
+            <AnswerTab searchParams={searchParams} userId={userInfo.user._id} clerkId={clerkId as string} />
           </TabsContent>
         </Tabs>
       </div>

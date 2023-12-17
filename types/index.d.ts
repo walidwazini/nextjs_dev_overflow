@@ -39,6 +39,25 @@ export interface QuestionCardProps {
   createdAt: Date;
 }
 
+export interface AnswerCardProps {
+  clerkId?: string | null;
+  _id: string;
+  question: {
+    _id: string;
+    title: string;
+    createdAt: Date
+  };
+  content: string
+  author: {
+    _id: string;
+    clerkId: string;
+    name: string;
+    picture: string;
+  };
+  upvotes: number;
+  createdAt: Date;
+}
+
 export interface MetricProps {
   imgUrl: string,
   alt: string,
@@ -76,10 +95,10 @@ export interface StatsProps {
   totalAnswers: number
 }
 
-export interface StatsCardProps { 
-   imgUrl: string
-   value: number
-   title: string
+export interface StatsCardProps {
+  imgUrl: string
+  value: number
+  title: string
 }
 
 export interface SearchParamsProps {
