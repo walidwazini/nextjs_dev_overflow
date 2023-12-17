@@ -90,3 +90,8 @@ export interface QuestionTabProps extends SearchParamsProps {
   userId: string
   clerkId?: string
 }
+
+export interface AnswerTabProps extends SearchParamsProps {
+  userId: string
+  clerkId?: string
+}
