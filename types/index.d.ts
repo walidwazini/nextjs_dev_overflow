@@ -1,6 +1,5 @@
 
 
-
 export interface SidebarLink {
   imgURL: string;
   route: string;
@@ -81,4 +80,13 @@ export interface StatsCardProps {
    imgUrl: string
    value: number
    title: string
+}
+
+export interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+
+export interface QuestionTabProps extends SearchParamsProps {
+  userId: string
+  clerkId?: string
 }

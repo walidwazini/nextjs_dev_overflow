@@ -7,7 +7,7 @@ import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
 import {
   CreateUserParams, DeleteUserParams, GetAllUsersParams,
-  UpdateUserParams, GetSavedQuestionParams, QuestionSaveParams,
+  UpdateUserParams, GetSavedQuestionParams, QuestionSaveParams, GetUserStatsParams,
 } from "./shared.types"
 import Question from "@/database/question.model"
 import Tag from "@/database/tag.model"
@@ -198,4 +198,25 @@ export const getUserInfo = async ({ userId }: { userId: string }) => {
     console.log(error)
     throw error
   }
+}
+
+export const getUserQuestions = async (params: GetUserStatsParams) => {
+  const { userId, page = 1, pageSize = 10 } = params
+
+  try {
+    connectToDatabase()
+
+    const totalQuestions = await Question.countDocuments({ author: userId })
+
+    const userQuestions = await Question.find({ author: userId })
+      .sort({ views: -1 })
+      .populate('tags', '_id name')
+      .populate('author', '_id clerkId name picture')
+
+    return { totalQuestions, questions: userQuestions }
+
+  } catch (error) {
+    throw error
+  }
+
 }

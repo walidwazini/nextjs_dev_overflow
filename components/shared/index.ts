@@ -12,6 +12,7 @@ import AllAnswers from "./AllAnswers";
 import VotingBar from "./VotingBar";
 import ProfileLink from "./ProfileLink";
 import Stats from "./Stats";
+import QuestionTab from "./QuestionTab";
 
 export {
   Navbar,
@@ -20,5 +21,6 @@ export {
   LocalSearchbar, Filter,
   NoResult,QuestionCard,
   Metric, ParseHTML, AllAnswers,
-  VotingBar, ProfileLink, Stats
+  VotingBar, ProfileLink, Stats,
+  QuestionTab
 }

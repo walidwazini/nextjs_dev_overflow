@@ -38,8 +38,8 @@ export interface GetSavedQuestionParams {
   clerkId: string,
   page?: number,
   pageSize?: number,
-  filter? : string,
-  searchQuery? : string
+  filter?: string,
+  searchQuery?: string
 }
 
 
@@ -84,6 +84,12 @@ export interface GetAllUsersParams {
   pageSize?: number;
   filter?: string;
   searchQuery?: string; // Add searchQuery parameter
+}
+
+export interface GetUserStatsParams {
+  userId: string
+  page?: number
+  pageSize?: number
 }
 
 //  ------------- TAGS -------------- 
