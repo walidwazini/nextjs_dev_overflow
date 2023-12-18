@@ -23,6 +23,7 @@ interface NoResultProps {
 
 export interface QuestionCardProps {
   _id: string;
+  clerkId?: string | null
   title: string;
   tags: {
     _id: string;
@@ -32,6 +33,7 @@ export interface QuestionCardProps {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string
   };
   upvotes: number;
   views: number;

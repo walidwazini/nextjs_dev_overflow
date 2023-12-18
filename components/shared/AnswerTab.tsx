@@ -7,7 +7,7 @@ import { AnswerCard } from '.'
 const AnswerTab = async ({ userId, clerkId, searchParams }: AnswerTabProps) => {
   const { answers, totalAnswers } = await getUserAnswers({ userId, page: 1 })
 
-  console.log(answers)
+  // console.log(answers)
 
   return (
     <>

@@ -8,6 +8,9 @@ import { Metric } from '../shared'
 import millify from 'millify'
 
 const AnswerCard = ({ _id, clerkId, content, author, upvotes, createdAt, question }: AnswerCardProps) => {
+
+  // console.log({ clerkId })
+
   return (
     <Link href={`/question/${question._id}/#${_id}`} className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex items-start justify-between gap-5 ">
@@ -20,6 +23,7 @@ const AnswerCard = ({ _id, clerkId, content, author, upvotes, createdAt, questio
       </div>
       <hr className="my-4 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
       <div>
+        <div>{clerkId}</div>
         <div className="mb-2 text-md font-semibold text-dark400_light700 line-clamp-1 flex">
           Answered &mdash; {moment(createdAt).fromNow()}
         </div>

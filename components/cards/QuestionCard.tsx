@@ -7,7 +7,10 @@ import millify from 'millify'
 import { QuestionCardProps } from '@/types'
 import { Metric, RenderTag } from '../shared'
 
-const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, createdAt }: QuestionCardProps) => {
+const QuestionCard = ({ _id, clerkId, title, tags, author, upvotes, views, answers, createdAt }: QuestionCardProps) => {
+  // console.log({ clerkId: clerkId, author: author.clerkId })
+  // If online user is the author of the question
+  const showActionButtons = clerkId && clerkId === author.clerkId
 
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
@@ -22,6 +25,11 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
             </h3>
           </Link>
         </div>
+        <SignedIn>
+          {showActionButtons && (
+            <div>Action Buttons</div>
+          )}
+        </SignedIn>
       </div>
       <div className="mt-3.5 flex flex-wrap gap-2">
         {tags.map((tag) => (

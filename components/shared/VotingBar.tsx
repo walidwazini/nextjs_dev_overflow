@@ -66,9 +66,6 @@ const VotingBar = (props: VotingBarProps) => {
   }
 
   const saveHandler = async () => {
-    console.log(userId)
-    console.log(JSON.parse(userId))
-
     await toggleSaveQuestion({
       userId: JSON.parse(userId),
       questionId: JSON.parse(itemId),
