@@ -55,6 +55,11 @@ export interface GetQuestionsByTagIdParams {
   searchQuery?: string;
 }
 
+export interface DeleteQuestionParams {
+  questionId: string
+  path: string
+}
+
 //  ------------- USERS -------------- 
 
 export interface CreateUserParams {
@@ -128,4 +133,10 @@ export interface AnswerVoteParams {
   hasUpvoted: boolean;
   hasDownvoted: boolean;
   path: string;
+}
+
+export interface DeleteAnswerParams {
+  questionId?: string
+  answerId: string
+  path: string
 }

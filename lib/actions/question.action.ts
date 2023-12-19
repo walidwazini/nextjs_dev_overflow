@@ -1,6 +1,5 @@
 "use server"
 
-import { Schema } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import Question from "@/database/question.model";
@@ -8,10 +7,12 @@ import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
 import User from "@/database/user.model";
 import {
-  CreateQuestionParams, GetQuestionByIdParams,
+  CreateQuestionParams, DeleteQuestionParams, GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams
 } from "./shared.types";
+import Answer from "@/database/answer.model";
+import Interaction from "@/database/interaction.model";
 
 export const getQuestions = async (params: GetQuestionsParams) => {
   try {
@@ -118,7 +119,7 @@ export const upvoteQuestion = async (params: QuestionVoteParams) => {
     console.log(error)
     throw error
   }
-}  
+}
 
 export const downvoteQuestion = async (params: QuestionVoteParams) => {
   try {
@@ -149,4 +150,24 @@ export const downvoteQuestion = async (params: QuestionVoteParams) => {
     console.log(error)
     throw error
   }
-}  
+}
+
+export const deleteQuestion = async ({ path, questionId }: DeleteQuestionParams) => {
+  try {
+    connectToDatabase()
+
+    await Question.deleteOne({ _id: questionId })
+
+    await Answer.deleteMany({ question: questionId })
+
+    await Interaction.deleteMany({ question: questionId })
+
+    await Tag.updateMany({ question: questionId }, {
+      $pull: { questions: questionId }
+    })
+
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}

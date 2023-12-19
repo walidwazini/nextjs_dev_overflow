@@ -2,9 +2,11 @@
 
 import React from 'react'
 
-import { EditDeleteActionProps } from '@/types'
+import { EditDeleteBarProps } from '@/types'
+import { deleteQuestion } from '@/lib/actions/question.action'
+import path from 'path'
 
-const EditDeleteBar = ({ type, itemId }: EditDeleteActionProps) => {
+const EditDeleteBar = ({ type, itemId }: EditDeleteBarProps) => {
 
   const handleEdit = () => { }
 
