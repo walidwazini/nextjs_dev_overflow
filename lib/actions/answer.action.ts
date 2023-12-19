@@ -2,11 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
-import Answer from "@/database/answer.model"
 import { connectToDatabase } from "../mongoose"
 import { AnswerVoteParams, CreateAnswerParams, DeleteAnswerParams, GetAnswersParams } from "./shared.types"
-import Question from "@/database/question.model"
-import Interaction from "@/database/interaction.model"
+import { Answer, Interaction, Question } from "@/database"
+
 
 export const createAnswer = async (params: CreateAnswerParams) => {
   try {

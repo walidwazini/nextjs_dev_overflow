@@ -2,13 +2,12 @@
 
 import { FilterQuery } from 'mongoose'
 
-import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
 import {
   GetAllTagsParams, GetTopInteractedTags, GetQuestionsByTagIdParams
 } from "./shared.types"
 import Tag, { ITag } from "@/database/tag.model"
-import Question from '@/database/question.model'
+import { Question, User } from '@/database'
 
 export const getAllTags = async (params: GetAllTagsParams) => {
   try {

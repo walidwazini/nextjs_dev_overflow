@@ -3,15 +3,12 @@
 import { revalidatePath } from "next/cache"
 import { FilterQuery } from "mongoose"
 
-import User from "@/database/user.model"
 import { connectToDatabase } from "../mongoose"
 import {
   CreateUserParams, DeleteUserParams, GetAllUsersParams,
   UpdateUserParams, GetSavedQuestionParams, QuestionSaveParams, GetUserStatsParams,
 } from "./shared.types"
-import Question from "@/database/question.model"
-import Tag from "@/database/tag.model"
-import Answer from "@/database/answer.model"
+import { Answer, Question, Tag, User } from "@/database"
 
 
 export const getUserById = async (params: any) => {

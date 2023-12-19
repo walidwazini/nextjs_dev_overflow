@@ -2,17 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 
-import Question from "@/database/question.model";
-import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose"
-import User from "@/database/user.model";
 import {
   CreateQuestionParams, DeleteQuestionParams, GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams
 } from "./shared.types";
-import Answer from "@/database/answer.model";
-import Interaction from "@/database/interaction.model";
+import { Answer, Interaction, Question, Tag, User } from "@/database";
+
 
 export const getQuestions = async (params: GetQuestionsParams) => {
   try {

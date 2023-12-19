@@ -1,20 +1,22 @@
 "use client"
 
 import React from 'react'
+import { usePathname } from 'next/navigation'
 
 import { EditDeleteBarProps } from '@/types'
 import { deleteQuestion } from '@/lib/actions/question.action'
-import path from 'path'
+import { deleteAnswer } from '@/lib/actions/answer.action'
 
 const EditDeleteBar = ({ type, itemId }: EditDeleteBarProps) => {
+  const pathname = usePathname()
 
   const handleEdit = () => { }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (type === 'question') {
-
+      await deleteQuestion({ path: pathname, questionId: JSON.parse(itemId) })
     } else if (type === 'answer') {
-
+      await deleteAnswer({ path: pathname, answerId: JSON.parse(itemId) })
     }
   }
 

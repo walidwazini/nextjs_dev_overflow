@@ -136,7 +136,6 @@ export interface AnswerVoteParams {
 }
 
 export interface DeleteAnswerParams {
-  questionId?: string
   answerId: string
   path: string
 }
