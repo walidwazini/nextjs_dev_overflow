@@ -5,7 +5,7 @@ import moment from 'moment'
 import millify from 'millify'
 
 import { QuestionCardProps } from '@/types'
-import { Metric, RenderTag } from '../shared'
+import { EditDeleteBar, Metric, RenderTag } from '../shared'
 
 const QuestionCard = ({ _id, clerkId, title, tags, author, upvotes, views, answers, createdAt }: QuestionCardProps) => {
   // console.log({ clerkId: clerkId, author: author.clerkId })
@@ -27,7 +27,10 @@ const QuestionCard = ({ _id, clerkId, title, tags, author, upvotes, views, answe
         </div>
         <SignedIn>
           {showActionButtons && (
-            <div>Action Buttons</div>
+            <EditDeleteBar
+              type="question"
+              itemId={JSON.stringify(_id)}
+            />
           )}
         </SignedIn>
       </div>

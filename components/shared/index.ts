@@ -15,6 +15,7 @@ import Stats from "./Stats";
 import QuestionTab from "./QuestionTab";
 import AnswerTab from "./AnswerTab";
 import AnswerCard from "../cards/AnswerCard";
+import EditDeleteBar from "./EditDeleteBar";
 
 export {
   Navbar,
@@ -26,4 +27,5 @@ export {
   VotingBar, ProfileLink, Stats,
   QuestionTab, AnswerTab,
   AnswerCard,
+  EditDeleteBar
 }

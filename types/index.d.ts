@@ -116,3 +116,8 @@ export interface AnswerTabProps extends SearchParamsProps {
   userId: string
   clerkId?: string
 }
+
+export interface EditDeleteActionProps {
+  type: string
+  itemId: string
+}
