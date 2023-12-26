@@ -1,5 +1,7 @@
 //  ----------- QUESTION ------------- 
 
+import { IUser } from "@/database/user.model";
+
 export interface GetQuestionsParams {
   page?: number;
   pageSize?: number;

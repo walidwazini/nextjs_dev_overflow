@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -8,17 +9,20 @@ import { ProfileFormProps } from '@/types'
 import { useForm } from 'react-hook-form'
 import { Button } from "@/components/ui/button"
 import {
-  Form, FormControl, FormDescription,
+  Form, FormControl,
   FormField, FormItem, FormLabel, FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from '../ui/textarea'
 import { ProfileSchema } from '@/lib/validation'
+import { updateUser } from '@/lib/actions/user.action'
 
 
 const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const parsedUser = JSON.parse(user)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
@@ -31,9 +35,28 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof ProfileSchema>) => {
-    console.log(values)
-    // TODO update user action 
+  const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
+    setIsSubmitting(true)
+
+    try {
+      await updateUser({
+        clerkId,
+        updateData: {
+          name: values.name,
+          username: values.username,
+          portfolioWebsite: values.portfolioWebsite,
+          location: values.location,
+          bio: values.bio,
+        },
+        path: pathname
+      })
+
+      router.back()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -89,6 +112,7 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
               </FormLabel>
               <FormControl>
                 <Input
+                  required={false}
                   type="url"
                   placeholder="Your portfolio URL"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
