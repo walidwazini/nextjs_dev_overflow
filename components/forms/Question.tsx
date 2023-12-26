@@ -21,20 +21,24 @@ import { useTheme } from '@/context/ThemeProvider'
 
 interface Props {
   mongoUserId: string
+  type?: 'create' | 'edit' | ''
+  questionDetails?: string
 }
 
-const Question = ({ mongoUserId }: Props) => {
+const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   const editorRef = useRef()
   const { mode } = useTheme()
   const router = useRouter()
   const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const parsedQuestionDetails = JSON.parse(questionDetails || '')
+
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
+      title: parsedQuestionDetails.title || '',
+      explanation: parsedQuestionDetails.content || "",
       tags: [],
     },
   })
@@ -134,7 +138,7 @@ const Question = ({ mongoUserId }: Props) => {
                     // @ts-ignore
                     editorRef.current = editor
                   }}
-                  initialValue=""
+                  initialValue={parsedQuestionDetails.content || ''}
                   init={{
                     height: 500,
                     menubar: false,
@@ -161,6 +165,7 @@ const Question = ({ mongoUserId }: Props) => {
           )}
         />
         {/* //? Tags  */}
+        {/* TODO populate tags for Editing Question */}
         <FormField
           control={form.control}
           name='tags'
@@ -209,7 +214,10 @@ const Question = ({ mongoUserId }: Props) => {
           className=' bg-primary-500 w-full !text-light-900 uppercase font-semibold'
           type="submit"
         >
-          Submit
+          {isSubmitting
+            ? (<>{type === 'edit' ? 'Editing..' : 'Posting..'}</>)
+            : (<> {type === 'edit' ? 'Update a Question' : 'Post a Question'} </>)
+          }
         </Button>
       </form>
     </Form>

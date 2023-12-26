@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { EditDeleteBarProps } from '@/types'
 import { deleteQuestion } from '@/lib/actions/question.action'
@@ -9,8 +9,11 @@ import { deleteAnswer } from '@/lib/actions/answer.action'
 
 const EditDeleteBar = ({ type, itemId }: EditDeleteBarProps) => {
   const pathname = usePathname()
+  const router = useRouter()
 
-  const handleEdit = () => { }
+  const handleEdit = () => {
+    router.push(`/question/edit/${JSON.parse(itemId)}`)
+   }
 
   const handleDelete = async () => {
     if (type === 'question') {
