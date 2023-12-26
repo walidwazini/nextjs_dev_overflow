@@ -25,7 +25,7 @@ interface Props {
   questionDetails?: string
 }
 
-const Question = ({ mongoUserId, type, questionDetails }: Props) => {
+const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
   const editorRef = useRef()
   const { mode } = useTheme()
   const router = useRouter()
@@ -33,13 +33,14 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const parsedQuestionDetails = JSON.parse(questionDetails || '')
+  const groupedTags = parsedQuestionDetails.tags.map((tag: any) => tag.name)
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
       title: parsedQuestionDetails.title || '',
       explanation: parsedQuestionDetails.content || "",
-      tags: [],
+      tags: groupedTags || [],
     },
   })
 
@@ -78,14 +79,18 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   const onSubmit = async (values: z.infer<typeof QuestionSchema>) => {
     setIsSubmitting(true)
     try {
-      const newQuestion = await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(mongoUserId),
-        path: pathname
-      })
-      router.push('/')
+      if (type === 'create') {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(mongoUserId),
+          path: pathname
+        })
+        router.push('/')
+      } else if (type === 'edit') {
+
+      }
     } catch (error) {
       console.log(error)
     }
@@ -165,7 +170,6 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
           )}
         />
         {/* //? Tags  */}
-        {/* TODO populate tags for Editing Question */}
         <FormField
           control={form.control}
           name='tags'
@@ -224,4 +228,4 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   )
 }
 
-export default Question
+export default QuestionForm

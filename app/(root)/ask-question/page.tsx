@@ -1,9 +1,9 @@
 import React from 'react'
 import { auth } from '@clerk/nextjs'
 
-import Question from '@/components/forms/Question'
 import { redirect } from 'next/navigation'
 import { getUserById } from '@/lib/actions/user.action'
+import QuestionForm from '@/components/forms/QuestionForm'
 
 const AskQuestion = async () => {
   // adasd asdas
@@ -18,7 +18,7 @@ const AskQuestion = async () => {
     <div>
       <h1 className='h1-bold text-darkl100_light900' >Ask a Question</h1>
       <div className='mt-8' >
-        <Question type='create' mongoUserId={JSON.stringify(mongoUser?._id)} />
+        <QuestionForm type='create' mongoUserId={JSON.stringify(mongoUser?._id)} />
       </div>
     </div>
   )
