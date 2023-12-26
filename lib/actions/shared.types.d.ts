@@ -60,6 +60,13 @@ export interface DeleteQuestionParams {
   path: string
 }
 
+export interface EditQuestionParams {
+  questionId: string;
+  title: string;
+  content: string;
+  path: string;
+}
+
 //  ------------- USERS -------------- 
 
 export interface CreateUserParams {

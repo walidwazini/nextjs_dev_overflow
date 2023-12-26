@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { QuestionSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
-import { createQuestion } from '@/lib/actions/question.action'
+import { createQuestion, editQuestion } from '@/lib/actions/question.action'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTheme } from '@/context/ThemeProvider'
 
@@ -32,15 +32,15 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
   const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || '')
-  const groupedTags = parsedQuestionDetails.tags.map((tag: any) => tag.name)
+  const parsedQuestionDetails = questionDetails && JSON.parse(questionDetails || '')
+  const groupedTags = questionDetails && parsedQuestionDetails.tags.map((tag: any) => tag.name)
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: parsedQuestionDetails.title || '',
-      explanation: parsedQuestionDetails.content || "",
-      tags: groupedTags || [],
+      title: questionDetails ? (parsedQuestionDetails.title) : '',
+      explanation: questionDetails ? parsedQuestionDetails.content : "",
+      tags: questionDetails ? groupedTags : [],
     },
   })
 
@@ -71,6 +71,8 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
   }
 
   const handleTagRemove = (tag: string, field: any) => {
+    if (type === 'edit') return
+
     const newTags = field.value.filter((t: string) => t !== tag);
 
     form.setValue('tags', newTags);
@@ -89,7 +91,13 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
         })
         router.push('/')
       } else if (type === 'edit') {
-
+        await editQuestion({
+          questionId: parsedQuestionDetails._id,
+          title: values.title,
+          content: values.explanation,
+          path: pathname,
+        })
+        router.push(`/question/${parsedQuestionDetails._id}`);
       }
     } catch (error) {
       console.log(error)
@@ -143,7 +151,7 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
                     // @ts-ignore
                     editorRef.current = editor
                   }}
-                  initialValue={parsedQuestionDetails.content || ''}
+                  initialValue={questionDetails ? parsedQuestionDetails.content : ''}
                   init={{
                     height: 500,
                     menubar: false,
@@ -184,7 +192,7 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
                     className={`no-focus paragraph-regular background-light900_dark300 border-2  text-dark300_light700 min-h-[56px]`}
                     placeholder='Add tags...'
                     onKeyDown={ev => handleInputKeyDown(ev, field)}
-                    disabled={field.value.length === 3}
+                    disabled={type === 'edit' || field.value.length === 3}
                   />
                   {field.value?.length > 0 && (
                     <div className="flex-start mt-2.5 gap-2.5">
@@ -195,11 +203,13 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
                           onClick={() => handleTagRemove(tag, field)}
                         >
                           {tag}
-                          <Image
-                            src="/assets/icons/close.svg"
-                            alt="Close icon" width={12} height={12}
-                            className="cursor-pointer object-contain invert-0 dark:invert"
-                          />
+                          {type === 'create' && (
+                            <Image
+                              src="/assets/icons/close.svg"
+                              alt="Close icon" width={12} height={12}
+                              className="cursor-pointer object-contain invert-0 dark:invert"
+                            />
+                          )}
                         </Badge>
                       ))}
                     </div>
