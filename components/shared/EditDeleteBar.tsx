@@ -26,14 +26,14 @@ const EditDeleteBar = ({ type, itemId }: EditDeleteBarProps) => {
         <img
           src={'/assets/icons/edit.svg'}
           alt='Edit' width={20} height={20}
-          className='cursor-pointer object-contain'
+          className='cursor-pointer object-contain hover:bg-blue-900 rounded-lg'
           onClick={handleEdit}
         />
       )}
       <img
         src={'/assets/icons/trash.svg'}
         alt='Edit' width={20} height={20}
-        className='cursor-pointer object-contain'
+        className='cursor-pointer object-contain hover:bg-red-900 rounded-lg'
         onClick={handleDelete}
       />
     </div>

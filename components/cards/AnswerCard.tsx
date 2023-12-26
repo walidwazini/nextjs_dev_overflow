@@ -1,15 +1,16 @@
-import moment from 'moment'
 import React from 'react'
-import Link from 'next/link'
-
-
-import { AnswerCardProps, QuestionCardProps } from '@/types'
-import { Metric } from '../shared'
+import moment from 'moment'
 import millify from 'millify'
+import Link from 'next/link'
+import { SignedIn } from '@clerk/nextjs'
+
+
+import { AnswerCardProps } from '@/types'
+import { EditDeleteBar, Metric } from '../shared'
 
 const AnswerCard = ({ _id, clerkId, content, author, upvotes, createdAt, question }: AnswerCardProps) => {
 
-  // console.log({ clerkId })
+  const showActionButtons = clerkId && clerkId === author.clerkId
 
   return (
     <Link href={`/question/${question._id}/#${_id}`} className="card-wrapper rounded-[10px] p-9 sm:px-11">
@@ -23,14 +24,24 @@ const AnswerCard = ({ _id, clerkId, content, author, upvotes, createdAt, questio
       </div>
       <hr className="my-4 h-0.5 border-t-0 dark:bg-slate-600 bg-slate-300 opacity-100 dark:opacity-50" />
       <div>
-        <div>{clerkId}</div>
-        <div className="mb-2 text-md font-semibold text-dark400_light700 line-clamp-1 flex">
-          Answered &mdash; {moment(createdAt).fromNow()}
+        <div className='flex justify-between items-center mb-2 ' >
+          <div className="text-md font-semibold text-dark400_light700 line-clamp-1 flex">
+            Answered &mdash; {moment(createdAt).fromNow()}
+          </div>
+          <SignedIn>
+            {showActionButtons && (
+              <EditDeleteBar
+                type={'answer'}
+                itemId={JSON.stringify(_id)}
+              />
+            )}
+          </SignedIn>
         </div>
         <div style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
+          maxWidth: '350px',
           maxHeight: '200px', // Adjust the maximum width as needed
         }} dangerouslySetInnerHTML={{ __html: content }} />
       </div>

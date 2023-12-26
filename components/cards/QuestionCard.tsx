@@ -28,7 +28,7 @@ const QuestionCard = ({ _id, clerkId, title, tags, author, upvotes, views, answe
         <SignedIn>
           {showActionButtons && (
             <EditDeleteBar
-              type="question"
+              type='question'
               itemId={JSON.stringify(_id)}
             />
           )}

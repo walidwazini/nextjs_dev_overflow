@@ -118,6 +118,6 @@ export interface AnswerTabProps extends SearchParamsProps {
 }
 
 export interface EditDeleteBarProps {
-  type: string
+  type: 'question' | 'answer'
   itemId: string
 }
