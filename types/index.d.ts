@@ -121,3 +121,8 @@ export interface EditDeleteBarProps {
   type: 'question' | 'answer'
   itemId: string
 }
+
+export interface ProfileFormProps {
+  clerkId: string
+  user: string
+}
