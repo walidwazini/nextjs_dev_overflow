@@ -3,18 +3,22 @@ import Link from 'next/link'
 
 import { RenderTag } from '.'
 import { getHotQuestions } from '@/lib/actions/question.action'
+import { getPopularTags } from '@/lib/actions/tag.actions'
 
 
-const popularTags = [
-  { _id: 'tys112', name: 'Typescript', totalQuestion: 12 },
-  { _id: 'nxt23', name: 'Nextjs', totalQuestion: 14 },
-  { _id: 'rct902', name: 'Reactjs', totalQuestion: 22 },
-  { _id: 'lrvl11-', name: 'Laravel', totalQuestion: 31 },
-  { _id: 'ng-lr43', name: 'Angular', totalQuestion: 17 },
-]
+// const popularTags = [
+//   { _id: 'tys112', name: 'Typescript', totalQuestion: 12 },
+//   { _id: 'nxt23', name: 'Nextjs', totalQuestion: 14 },
+//   { _id: 'rct902', name: 'Reactjs', totalQuestion: 22 },
+//   { _id: 'lrvl11-', name: 'Laravel', totalQuestion: 31 },
+//   { _id: 'ng-lr43', name: 'Angular', totalQuestion: 17 },
+// ]
 
 const RightSidebar = async () => {
   const hotQuestions = await getHotQuestions()
+  const popularTags = await getPopularTags()
+
+  console.log(popularTags)
 
   return (
     <section
@@ -43,7 +47,7 @@ const RightSidebar = async () => {
           {popularTags.map(tag => (
               <RenderTag 
               key={tag._id} id={tag._id} name={tag.name}
-              totalQuestion={tag.totalQuestion} showCount
+              totalQuestion={tag.numOfQuestions} showCount
               />
             ))}
         </div>

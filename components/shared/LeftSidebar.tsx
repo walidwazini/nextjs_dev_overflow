@@ -34,9 +34,9 @@ const LeftSidebar = () => {
               href={link.route}
               key={link.label}
               className={`${isActive
-                ? "primary-gradient rounded-lg text-light-900"
+                ? "primary-gradient text-light-900"
                 : "text-dark300_light900"
-                }  flex links-center justify-start gap-4 bg-transparent p-4`}
+                }  flex links-center justify-start gap-4 bg-transparent p-4 hover:bg-primary-500 rounded-lg`}
             >
               <img
                 src={link.imgURL}
