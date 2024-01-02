@@ -1,15 +1,9 @@
-"use client"
-
 import React from 'react'
 import Link from 'next/link'
-import { RenderTag } from '.'
 
-const sampleHotQuestions = [
-  { _id: 1, question: 'How do I use prisma in Nextjs 13 ?' },
-  { _id: 2, question: 'How do I use prisma in Nextjs 13 ?' },
-  { _id: 3, question: 'How do I use prisma in Nextjs 13 ?' },
-  { _id: 4, question: 'How do I use prisma in Nextjs 13 ?' },
-]
+import { RenderTag } from '.'
+import { getHotQuestions } from '@/lib/actions/question.action'
+
 
 const popularTags = [
   { _id: 'tys112', name: 'Typescript', totalQuestion: 12 },
@@ -19,8 +13,8 @@ const popularTags = [
   { _id: 'ng-lr43', name: 'Angular', totalQuestion: 17 },
 ]
 
-const RightSidebar = () => {
-
+const RightSidebar = async () => {
+  const hotQuestions = await getHotQuestions()
 
   return (
     <section
@@ -32,12 +26,12 @@ const RightSidebar = () => {
       >
         <h3 className='h3-bold text-dark200_light900 ' >Top Questions</h3>
         <div className='mt-7 w-full flex flex-col gap-[30px] ' >
-          {sampleHotQuestions.map(item => (
+          {hotQuestions.map(item => (
             <Link
-              href={`/questions/${item._id}`} key={item._id}
+              href={`/question/${item._id}`} key={item._id}
               className='flex cursor-pointer items-center justify-between gap-7 '
             >
-              <p className='body-medium text-dark500_light700 ' >{item.question}</p>
+              <p className='body-medium text-dark500_light700 line-clamp-1 hover:underline' >{item.title}</p>
               <img src={'/assets/icons/chevron-right.svg'} alt='icon' width={20} height={20} className='invert-colors' />
             </Link>
           ))}
