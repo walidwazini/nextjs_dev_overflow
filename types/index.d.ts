@@ -126,3 +126,7 @@ export interface ProfileFormProps {
   clerkId: string
   user: string
 }
+
+export interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined }
+}
