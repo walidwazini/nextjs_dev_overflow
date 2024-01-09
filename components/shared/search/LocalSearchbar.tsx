@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { CustomInputProps } from '@/types'
 import { Input } from '@/components/ui/input'
-import { formUrlQuery } from '@/lib/utils'
+import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils'
 
 const LocalSearchbar = ({ route, iconPosition, imgSrc, placeholder, otherClasses }: CustomInputProps) => {
   const router = useRouter()
@@ -25,6 +25,17 @@ const LocalSearchbar = ({ route, iconPosition, imgSrc, placeholder, otherClasses
           value: search
         })
         router.push(newUrl, { scroll: false })
+      }
+      // if we delete query 
+      else {
+        if (pathname === route) {
+          const newUrl = removeKeysFromQuery({
+            params: searchParams.toString(),
+            keysToRemove: ['q']
+          })
+
+          router.push(newUrl, { scroll: false });
+        }
       }
     }, 300)
 
