@@ -28,6 +28,7 @@ const LocalSearchbar = ({ route, iconPosition, imgSrc, placeholder, otherClasses
       }
       // if we delete query 
       else {
+        console.log({ pathname, route })
         if (pathname === route) {
           const newUrl = removeKeysFromQuery({
             params: searchParams.toString(),

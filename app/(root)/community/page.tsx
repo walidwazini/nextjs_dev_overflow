@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link'
 import React from 'react'
 
@@ -5,9 +6,17 @@ import { Filter, LocalSearchbar } from '@/components/shared'
 import { TagFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
 import UserCard from '@/components/cards/UserCard'
+import { SearchParamsProps } from '@/types';
 
-const Community = async () => {
-  const result = await getAllUsers({})
+
+export const metadata: Metadata = {
+  title: 'Community | Dev Overflow',
+}
+
+const Community = async ({searchParams}: SearchParamsProps) => {
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+  })
 
   return (
     <>
