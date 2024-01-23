@@ -10,10 +10,18 @@ import Tag, { ITag } from "@/database/tag.model"
 import { Question, User } from '@/database'
 
 export const getAllTags = async (params: GetAllTagsParams) => {
+  const { searchQuery } = params
+
+  const query: FilterQuery<typeof Tag> = {}
+
   try {
     connectToDatabase()
 
-    const tags = await Tag.find({}).sort({ createdAt: -1 })
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
+
+    const tags = await Tag.find(query).sort({ createdAt: -1 })
 
     return { tags }
 

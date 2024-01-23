@@ -4,19 +4,7 @@ import { getQuestionByTagId } from '@/lib/actions/tag.actions'
 import { LocalSearchbar, NoResult, QuestionCard } from '@/components/shared'
 import { URLProps } from '@/types'
 
-// Only for mapping result
-interface QuestionType {
-  _id: string;
-  title: string;
-  author: { _id: string; name: string; picture: string; };
-  answers: object[];
-  createdAt: Date;
-  tags: { _id: string; name: string; }[];
-  upvotes: string | any[];
-  views: number;
-}
-
-const TagDetailsPage = async ({ params, searchParams } : URLProps) => {
+const TagDetailsPage = async ({ params, searchParams }: URLProps) => {
 
   const result = await getQuestionByTagId({
     tagId: params.id, page: 1, searchQuery: searchParams.q
@@ -27,7 +15,7 @@ const TagDetailsPage = async ({ params, searchParams } : URLProps) => {
       <h1 className="h1-bold text-dark100_light900 " >{result.tagTitle}</h1>
       <div className="mt-11 w-full " >
         <LocalSearchbar
-          route="/"
+          route={`/tags/${params.id}`}
           iconPosition='left'
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for other question.."
@@ -36,10 +24,11 @@ const TagDetailsPage = async ({ params, searchParams } : URLProps) => {
 
       </div>
       <div className="mt-10 w-full flex flex-col gap-6 " >
-        {result?.questions.length > 0 && result?.questions.map((question: QuestionType) => (
+        {result?.questions.length > 0 && result?.questions.map((question: any) => (
           <QuestionCard
             key={question._id} _id={question._id}
-            title={question.title} author={question.author}
+            title={question.title} 
+            author={question.author}
             answers={question.answers} createdAt={question.createdAt}
             tags={question.tags} upvotes={question.upvotes.length} views={question.views}
           />

@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
 import { UserFilters } from '@/constants/filters'
 import { getAllTags } from '@/lib/actions/tag.actions'
+import { SearchParamsProps } from '@/types'
 
-const Tags = async () => {
-  const result = await getAllTags({})
+const Tags = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllTags({
+    searchQuery:searchParams.q,
+  })
 
   return (
     <>
@@ -46,11 +49,11 @@ const Tags = async () => {
           </Link>
         ))}
         {result?.tags?.length === 0 && (
-          <NoResult 
-          title='No tags found.'
-          description='It looks like there are no tags found.'
-          linkTitle='Ask a Question'
-          link='/ask-question'
+          <NoResult
+            title='No tags found.'
+            description='It looks like there are no tags found.'
+            linkTitle='Ask a Question'
+            link='/ask-question'
           />
         )}
       </section>
