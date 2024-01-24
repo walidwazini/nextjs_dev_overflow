@@ -3,17 +3,16 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Filter, LocalSearchbar } from '@/components/shared'
-import { TagFilters } from '@/constants/filters'
+import { UserFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
 import UserCard from '@/components/cards/UserCard'
 import { SearchParamsProps } from '@/types';
-
 
 export const metadata: Metadata = {
   title: 'Community | Dev Overflow',
 }
 
-const Community = async ({searchParams}: SearchParamsProps) => {
+const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
     searchQuery: searchParams.q,
   })
@@ -32,7 +31,7 @@ const Community = async ({searchParams}: SearchParamsProps) => {
           otherClasses='flex-1'
         />
         <Filter
-          filters={TagFilters}
+          filters={UserFilters}
           otherClasses={`min-h-[56px] sm:min-w-[170px]`}
         // containerClasses={`max-md:flex hidden`}
         />
