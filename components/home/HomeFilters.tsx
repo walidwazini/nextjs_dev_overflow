@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from 'react'
-import { HomePageFilters } from '@/constants/filters'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Button } from '../ui/button'
+import { HomePageFilters } from '@/constants/filters'
 import { formUrlQuery } from '@/lib/utils'
 
 const HomeFilters = () => {
