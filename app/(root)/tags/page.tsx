@@ -2,13 +2,14 @@ import React from 'react'
 import Link from 'next/link'
 
 import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
-import { UserFilters } from '@/constants/filters'
+import { TagFilters } from '@/constants/filters'
 import { getAllTags } from '@/lib/actions/tag.actions'
 import { SearchParamsProps } from '@/types'
 
 const Tags = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllTags({
-    searchQuery:searchParams.q,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter
   })
 
   return (
@@ -26,7 +27,7 @@ const Tags = async ({ searchParams }: SearchParamsProps) => {
         />
         {/* Filter for small screen  */}
         <Filter
-          filters={UserFilters}
+          filters={TagFilters}
           otherClasses={`min-h-[56px] sm:min-w-[170px]`}
         // containerClasses={`max-md:flex hidden`}
         />
