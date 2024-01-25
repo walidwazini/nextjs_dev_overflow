@@ -11,7 +11,8 @@ import { getUserById } from '@/lib/actions/user.action'
 import { Button } from '@/components/ui/button'
 
 interface Props {
-  searchParams: string, params: { id: string }
+  searchParams: { filter: string }
+  , params: { id: string }
 }
 
 const Question = async ({ searchParams, params }: Props) => {
@@ -96,6 +97,7 @@ const Question = async ({ searchParams, params }: Props) => {
         questionId={question._id}
         userId={mongoUser?._id}
         totalAnswers={question.answers.length}
+        filter={searchParams && searchParams?.filter}
       />
 
       {userId
